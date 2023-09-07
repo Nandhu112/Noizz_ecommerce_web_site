@@ -1,0 +1,345 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Watch shop | eCommers</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/flaticon.css">
+  <link rel="stylesheet" href="assets/css/slicknav.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/css/themify-icons.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/nice-select.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <!--? Preloader Start -->
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="assets/img/noizz/logo.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Preloader Start -->
+  <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/img/noizz/logo.png" alt="" style="width: 150px;"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                     <li><a style="text-decoration: none;" href="/home">Home</a></li>
+                                    <li><a href="/allProducts">shop</a></li>
+                                  
+                                    <li ><a href="#">Account</a>
+                                        <ul class="submenu">
+                                            <li><a href="/getProfilePage"> Profile</a></li>
+                                            <li><a href="/logout"> Logout</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                   
+                             
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                 
+                          <div style="display: flex;">
+                               <div style="padding-left: 15px;">
+                                    <i class="fa fa-heart" style="font-size: 24px; "></i>
+                                    <a href="/wishlist"><span id="lbl">{{userWishlistCount}}</span></a>
+                                </div>
+
+                                {{!-- {{#if cartCounts}} --}}
+                                <div style="margin-left: 20px;">
+                                    <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+                                    <a href="/carts"><span id="lblCartCount" >{{cartCount}}</span></a>
+                                </div>
+    {{!-- {{else}}
+    <div style="margin-left: 20px;">
+        <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+        <a href="/carts"><span class="fa-solid fa-cart-shopping" id="lblCartCount">0</span></a>
+    </div>
+    {{/if}} --}}
+</div>
+        
+                    
+                      </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+  <main>
+    <!--? slider Area Start -->
+    <div class="slider-area ">
+
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="stylesheets/productDetails.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>eCommerce Product Detail</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+      </head>
+
+      <body>
+        <div class="container mt-5 mb-5" style="margin: 50px;">
+          <div class="card">
+            <!-- Inside your navbar element -->
+            <div class="row g-0">
+
+              <div class="col-md-6 border-end">
+                <div class="d-flex flex-column justify-content-center">
+
+                  <div class="thumbnail_images">
+                    <div class="preview-pic tab-content">
+                      <div class="tab-pane active" id="pic-1"><img src="/images/{{product._id}}0.jpg" /></div>
+                      <div class="tab-pane" id="pic-2"><img src="/images/{{product._id}}0.jpg" /></div>
+                      <div class="tab-pane" id="pic-3"><img src="/images/{{product._id}}0.jpg" /></div>
+                      <div class="tab-pane" id="pic-4"><img src="/images/{{product._id}}0.jpg" /></div>
+
+                    </div>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                      <li class="active"><a data-target="#pic-1" data-toggle="tab"><img
+                            src="/images/{{product._id}}0.jpg" /></a></li>
+                      <li><a data-target="#pic-2" data-toggle="tab"><img src="/images/{{product._id}}0.jpg" /></a></li>
+                      <li><a data-target="#pic-3" data-toggle="tab"><img src="/images/{{product._id}}0.jpg" /></a></li>
+                      <li><a data-target="#pic-4" data-toggle="tab"><img src="/images/{{product._id}}0.jpg" /></a></li>
+
+                    </ul>
+
+                  </div>
+                  <div class="details col-md-6">
+
+                    <div class="rating">
+                      <div class="stars">
+
+
+                      </div>
+
+                    </div>
+
+
+      </body>
+
+</html>
+</div>
+</div>
+</div>
+<div class="col-md-6 ">
+  <div class="p-3 right-side">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 style="text-transform:capitalize" class="m-2">{{product.Name}}</h3>
+      <!--  -->
+
+      <button class="heartbutton" onclick="addToWishlist('{{product._id}}')" style="">
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+            viewBox="0 0 16 16">
+            <path
+              d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z">
+            </path>
+          </svg>
+        </span>
+        <span class="title"><img src="https://www.freeiconspng.com/thumbs/heart-icon/valentine-heart-icon-6.png"
+            alt=""></span>
+        {{!-- <img src="https://www.freeiconspng.com/thumbs/heart-icon/valentine-heart-icon-6.png" alt=""> --}}
+
+      </button>
+
+
+    </div>
+    <div class="m-2 pr-3 content">
+      <p style="font-size: medium;"> {{product.Description}}</p>
+    </div>
+    <h3 class="m-2">Rs.{{product.Price}}</h3>
+    {{#if (gt 0 this.product.Stock )}}
+
+    <span class="text-danger" style="font-size: 13px; padding-left: 5px;">OutOfStock</span>
+    
+    {{/if}}
+
+    
+    <div class=" m-2 ratings d-flex flex-row align-items-center">
+      <div class="d-flex flex-row">
+
+        <i class='bx bxs-star'></i>
+
+        <i class='bx bx-star'></i>
+      </div>
+      <span>441 reviews</span>
+    </div>
+
+
+
+
+
+
+    <div class="mt-3 mb-3" style="text-transform: capitalize;font-size: larger;">
+      <input type="hidden" name="size" value="<%= productDetails.productSize %>">
+    </div>
+
+
+
+
+
+
+
+
+    <div class="buttons d-flex flex-row mt-3 gap-3">
+    
+      <!-- Inside the button element -->
+      <button id="cartButton" onclick="addToCart('{{product._id}}')" class="cart-button btn btn-outline-dark"><span>Add
+          to cart</span>
+        <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+          <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g>
+          <g id="SVGRepo_iconCarrier">
+            <defs> </defs>
+            <g id="cart">
+              <circle r="1.91" cy="20.59" cx="10.07" class="cls-1"></circle>
+              <circle r="1.91" cy="20.59" cx="18.66" class="cls-1"></circle>
+              <path
+                d="M.52,1.5H3.18a2.87,2.87,0,0,1,2.74,2L9.11,13.91H8.64A2.39,2.39,0,0,0,6.25,16.3h0a2.39,2.39,0,0,0,2.39,2.38h10"
+                class="cls-1"></path>
+              <polyline points="7.21 5.32 22.48 5.32 22.48 7.23 20.57 13.91 9.11 13.91" class="cls-1"></polyline>
+            </g>
+          </g>
+        </svg>
+
+      </button>
+    </div>
+    <!-- slider Area End-->
+    <!-- ? New Product Start -->
+
+    </main>
+
+  </div>
+  {{>userfooter}}
+  <!--? Search model Begin -->
+  <div class="search-model-box">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      <div class="search-close-btn">+</div>
+      <form class="search-model-form">
+        <input type="text" id="search-input" placeholder="Searching key.....">
+      </form>
+    </div>
+  </div>
+  <!-- Search model end -->
+
+  <!-- JS here -->
+
+  <!-- Jquery, Popper, Bootstrap -->
+  <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+  <script src="./assets/js/jquery.slicknav.min.js"></script>
+  <script src="./assets/js/slick.min.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+   
+    function addToCart(proId) {
+     var spanElement = document.getElementById('lblCartCount');
+    var cartCount = spanElement.textContent;
+    var cartCount = parseInt(cartCount);
+    var spanElement = document.getElementById('lblCartCount');
+    spanElement.textContent = cartCount+1;
+    console.log(cartCount, 'lblCartCount')
+      console.log(proId, 'ajjx')
+
+      $.ajax({
+        url: '/addToCart/' + proId,
+        method: 'get',
+        success: (response) => {
+          console.log('chkkkkkkkkkkk cart')
+          Swal.fire({
+      
+          icon: 'success',
+          title: 'Your product successfully added to the cart',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }
+      })
+    }
+
+    function addToWishlist(proId) {
+    var spanElement = document.getElementById('wishlistCount');
+    var wishlistCount = spanElement.textContent;
+   
+      console.log(proId, 'ajjx')
+
+      $.ajax({
+        url: '/addToWishlist/' + proId,
+        method: 'get',
+        success: (response) => {
+    
+          console.log('chkkkkkkkkkkk addToWishlist')
+          Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        }
+      })
+    }
+
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+    integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    const container = document.querySelector('#lottie-container');
+    const animation = lottie.loadAnimation({
+      container: container,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/animations/animation_ll926axo.json',
+    });
+  </script>
+  </body>
+
+  </html>

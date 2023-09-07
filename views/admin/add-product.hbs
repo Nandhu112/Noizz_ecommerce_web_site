@@ -1,0 +1,64 @@
+{{>adminTop}}
+<!-- partial -->
+<div class="col-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add products</h4>
+      {{!-- <p class="card-description"> Basic form elements </p> --}}
+      <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+        <label for="">Name</label>
+        <input type "text" name="Name" class="form-control">
+
+        <label for="">Category</label>
+        <select name="Category" class="form-control" id="categorySelect">
+          {{#each category }}
+          <option value="{{this.Category}}">{{this.Category}}</option>
+          {{/each}}
+          <option value="addNewCategory">Add new Category</option>
+        </select>
+
+        <label for="">Price</label>
+        <input type="text" name="Price" class="form-control">
+
+        <label for="">Description</label>
+        <input type="text" name="Description" class="form-control">
+
+
+         <label for="">Stock </label>
+        <input type="text" name="Stock" class="form-control">
+
+
+
+        {{!-- <label for="">Images</Label>
+        <input type="file" name="Images[]" class="form-control"> --}}
+
+        <label for="images">Images</label>
+        <input type="file" name="images[]" id="images" class="form-control" multiple>
+
+
+
+        <button type="submit" class="btn btn-success mt-4">Submit</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+<script>
+  const categorySelect = document.getElementById('categorySelect');
+
+  categorySelect.addEventListener('change', function () {
+    const selectedValue = categorySelect.value;
+    if (selectedValue === 'addNewCategory') {
+      window.location.href = '/admin/addCategory';
+    }
+  });
+</script>
+
+
+
+
+{{>adminBottom}}

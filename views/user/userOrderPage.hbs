@@ -1,0 +1,189 @@
+
+<body>
+  {{#each orders}}
+  <section class="h-100 gradient-custom">
+  <div class="container py-5 h-100" >
+    <div class="row d-flex justify-content-center align-items-center h-100 " >
+      <div class="col-lg-10 col-xl-8" >
+        <div class="card" style="border-radius: 10px; ">
+          {{#if (equal this.status "cancelled")}}
+            <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(198, 31, 31);" >
+            
+            <h5  style="color: aliceblue;">Order Cancelled!<span ></span>!</h5>
+       
+          </div>
+          {{else}}
+          <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(37, 43, 38);" >
+            
+            <h5 style="color: aliceblue;" >Thanks for your Order, <span >{{this.deliveryDetails.firstname}}</span>!</h5>
+       
+          </div>
+          {{/if}}
+          
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+          
+            
+            </div>
+            {{#each this.products}}
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="/images/{{this.product._id}}0.jpg"
+                      class="img-fluid" alt="Phone">
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">{{this.product.Name}}</p>
+                  </div>
+               
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 small">Qty: {{this.quantity}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 small">₹{{this.product.Price}}</p>
+                  </div>
+                   {{#if (notEqual this.proStatus "cancelled")}} 
+                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <button class="btn btn-danger" onclick="cancelOrderProduct('{{this.product._id}}','{{../this._id}}','{{this.product.Price}}','{{../this.totalAmount}}')">X</button>
+                  </div>
+                  {{/if}}
+                </div>
+                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                <div class="row d-flex align-items-center">
+                 
+                  <div class="col-md-10">
+                   
+                    
+                  </div>
+                </div>
+     
+     {{#if (equal this.proStatus "cancelled")}} 
+      <button  style="font-size: 20px; text-align: center;background-color:  rgb(201, 54, 54);color: #e0e0e0;" class="btn btn-warning"> {{this.proStatus}}</button>
+      {{else}}
+      <button style="font-size: 20px; text-align: center;background-color: rgb(79, 79, 90);color: #e0e0e0;border-radius: 5px;" > {{this.proStatus}}</button>
+       {{/if}}
+
+              </div>
+            </div>
+          {{/each }}
+           
+
+            <div class="d-flex justify-content-between pt-2">
+              <p class="fw-bold mb-0">Delivery address</p>
+             
+            </div>
+
+            <div class="d-flex justify-content-between pt-2">
+              <p class="text-muted mb-0">{{this.deliveryDetails.firstname}}</p>
+          
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <p class="text-muted mb-0">{{this.deliveryDetails.address1}}</p>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ₹ {{this.amountPaid}}</p>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-5">
+              <p class="text-muted mb-0">{{this.deliveryDetails.city}}</p>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+            </div>
+          </div>
+          <div class="card-header px-4 py-5" style="display: flex; justify-content: space-between">
+            <a style="" href="/invoice?id={{this._id}}"><button class="btn btn-success">Invoice Download</button></a>  
+           
+          
+   {{#if (equal this.status "placed")}} 
+    <button class="btn btn-danger"  onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
+     {{/if}}
+      {{#if (equal this.status "pending")}} 
+   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
+     {{/if}}
+        {{#if (equal this.status "shipped")}} 
+   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')"> CANCEL ORDER</button>
+     {{/if}}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ {{/each }}
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+  $(".card").click(function () {
+    $(this).toggleClass("toggle");
+  });
+});
+
+</script>
+
+    </body>
+</html>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+   function cancelOrder(orderId) {
+      console.log(orderId, 'ajjx')
+Swal.fire({
+  title: 'Are you sure?',
+
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+         $.ajax({
+        
+        url: '/cancelOrder/' + orderId,     
+        method: 'get',
+        success: (response) => {
+         location.reload()
+        }
+      })
+  }
+})
+ 
+    }
+
+    function cancelOrderProduct(proId,orderId,proTotal,total) {
+      console.log(proId,'ajjx proId')
+      console.log(orderId,'ajjx orderId')
+Swal.fire({
+  title: 'Are you sure?',
+
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+     $.ajax({
+            url: '/cancelSingleProduct',
+            data: {
+              proId: proId,
+              orderId:orderId,
+              proTotal:proTotal,
+              total:total
+            },
+
+            method: 'post',
+            success: (response) => {
+              console.log("succeeded ajjx")
+              location.reload()
+
+            }
+          });
+  }
+})
+ 
+    }
+</script>

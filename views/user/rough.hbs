@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <link rel="stylesheet" href="/stylesheets/ordersPage.css">
+    </head>
+    <body>
+<header>
+  <h1>My Orders</h1>
+  <p>View all of your pending orders here.</p>
+ <a href="/home"><p><b>HOME</b></p></a>
+</header>
+<div style="width: 1000px; align-items: center; padding-left: 300px;">
+{{#each orders}}
+<div class="container" style="align-items: center;">
+  <div class="heading"  >
+    {{!-- <div class="odetails-1">
+      <p><b>Order</b></p>
+      <p>#R86F854G7665</p>
+    </div> --}}
+    <div >
+      <p>Order Placed: {{ formatDate this.date}}</p>
+
+    </div>
+
+    {{!-- <button> --}}
+      {{!-- <p>Return Home</p> --}}
+           {{#if (equal this.status "cancelled")}} 
+      <button  style="font-size: 20px; text-align: center;" class="btn btn-warning">Status: {{this.status}}</button>
+      {{else}}
+      <button  style="font-size: 20px; text-align: center;" >Status: {{this.status}}</button>
+       {{/if}}
+      <p>payment method: {{this.paymentMethod}}</p>
+        
+    {{!-- </button> --}}
+  </div>
+<a style="" href="/invoice?id={{this._id}}"><button class="btn btn-success">Invoice Download</button></a>    
+  <hr>
+{{#each this.products}}
+  <div class="card-container">
+    <div class="card">
+      <div class="img">
+        <img src="/images/{{this.product._id}}0.jpg"  alt="Nike Air Jordan 1">
+      </div>
+      <div class="parent">
+        <div class="content">
+          <div >
+            <h1 style="font-size: 10px;">{{this.product.Name}}</h1>
+            
+          </div>
+          <div >
+            {{!-- <p>Size: 10</p> --}}
+            <p style="font-size: 10px;">Qty: {{this.quantity}}</p>
+            {{!-- <p><b>₹{{this.product.Price}}</b></p> --}}
+          </div>
+          <div class="sec1">
+            <p style="font-size: 10px;">Price:{{this.product.Price}}</p>
+            {{!-- <h2>₹{{this.product.Price}}</h2> --}}
+            <div class="sec2">
+            <div>
+                    <p style="font-size: 10px;">Delivery address:</p>
+            </div>
+          
+            <div>
+            <h3 style="font-size: 10px;">{{../this.deliveryDetails.firstname}}</h3>
+            <h3 style="font-size: 10px;">{{../this.deliveryDetails.address1}}</h3>
+            <h3 style="font-size: 10px;">{{../this.deliveryDetails.city}}</h3>
+            </div>
+           
+          </div>
+          </div>
+        </div>
+        <div>
+          
+    
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+  
+  {{/each}}
+  
+
+   {{#if (equal this.status "placed")}} 
+    <button  onclick="cancelOrder('{{this._id}}')" >✖ CANCEL ORDER</button>
+     {{/if}}
+      {{#if (equal this.status "pending")}} 
+   <button onclick="cancelOrder('{{this._id}}')" >✖ CANCEL ORDER</button>
+     {{/if}}
+        {{#if (equal this.status "shipped")}} 
+   <button onclick="cancelOrder('{{this._id}}')">✖ CANCEL ORDER</button>
+     {{/if}}
+  <div class="card-bottom">
+ 
+    {{!-- <a href="/cancelOrder?id={{this._id}}"><button >✖ CANCEL ORDER</button></a> --}}
+   
+  
+    <h1>Total Amount: ₹ {{this.amountPaid}}</h1>
+  </div>
+</div>
+{{/each}}
+
+</div>
+<script>
+    $(document).ready(function () {
+  $(".card").click(function () {
+    $(this).toggleClass("toggle");
+  });
+});
+
+</script>
+
+    </body>
+</html>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+   function cancelOrder(orderId) {
+      console.log(orderId, 'ajjx')
+     alert('hiiiiiiiiii')
+      $.ajax({
+        
+        url: '/cancelOrder/' + orderId,     
+        method: 'get',
+        success: (response) => {
+         location.reload()
+        }
+      })
+    }
+</script>

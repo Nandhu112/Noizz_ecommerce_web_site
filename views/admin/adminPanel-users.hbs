@@ -1,0 +1,74 @@
+
+{{>adminTop}}
+<img src="imagge/64be41b0d6a959e60bbba8821.jpg" alt="">
+
+  <div class="popular-img">
+                                <img src="imagge/64be41b0d6a959e60bbba8820.jpg" alt="">
+                       
+                              
+                            </div>
+<div class="card">
+    <div class="card-body">
+      
+        <h4 class="card-title ,mt-5"> All Users</h4>
+        {{!-- <p class="card-description"> <code></code> --}}
+        </p>
+        <div class="table-responsive">
+
+            <section>
+
+                <table class="table table-striped mt-5">
+                    <thead>
+                        <tr>
+                           
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                            {{!-- <th scope="col">Password</th> --}}
+                            {{!-- <th scope="col">admin</th> --}}
+                      
+                            {{!-- <th>Image</th> --}}
+                            <th style="text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                        <tr>
+                           
+                            <td>{{this.Name}}</td>
+                            <td>{{this.Email}}</td>
+                             <td>{{this.Mobile}}</td>
+                            {{!-- <td>{{this.Password}}</td> --}}
+                            {{!-- <td>{{this.Admin}} </td> --}}
+                       
+
+                            <td>
+                                
+
+                                {{#if this.Blocked}}
+                                <button class="btn btn-success btn-sm btn-block"
+                                    onclick="window.location.href='/admin/adminUn_block_user?userId={{this._id}}'">Un_block</button>
+                            </td>
+                            {{else}}
+                            <button class="btn btn-warning btn-sm btn-block"
+                                onclick="window.location.href='/admin/adminblock_user?userId={{this._id}}'">block</button>
+                            {{/if}}
+                        </tr>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+        </div>
+        </section>
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+|{{>adminBottom}}
+

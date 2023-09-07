@@ -1,0 +1,64 @@
+
+
+{{>adminTop}}
+
+<div class="col-12 grid-margin stretch-card" style="padding-top: 30px;">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Add Coupons</h4>
+      {{!-- <p class="card-description"> Basic form elements </p> --}}
+      <form action="/admin/editcoupon" method="post" enctype="multipart/form-data">
+      <div style="display: flex;">
+      <div style="display: grid; width: 40%;">
+        <div class="form-group mb-3">
+            <label for="name">Coupon Name
+            </label>
+            <input id="productName" name="name" type="text" class="form-control validate" value="{{coupon.couponName}}" required />
+          </div>
+       
+
+       <div class="form-group mb-3">
+              <label for="description">Coupons Code</label>
+              <input class="form-control validate" rows="3" name="code" value="{{coupon.code}}" required></input>
+            </div>
+
+        <div class="form-group mb-3">
+            <label for="description">Coupons Amount</label>
+            <input type="number" class="form-control validate" rows="3" name="amount" value="{{this.coupon.couponAmount}}" required></input>
+          </div>
+      </div>
+      <div style="display: grid; width: 50%; padding-left: 10%;">
+          <div class="form-group mb-3">
+            <label for="productColor">Coupons Expire Date
+            </label>
+            <input type="text" name="expire_date"  id="datepicker" class="form-control" value="{{coupon.couponExpireDate}}"required />
+
+          </div>
+
+
+          <div class="form-group mb-3">
+            <label for="productColor">Coupon Description
+            </label>
+            <input id="productName" name="description" type="text" class="form-control validate" value="{{coupon.couponDescription}}"  required />
+          </div>
+
+            <div class="form-group mb-3">
+            <label for="name">Mininum amount
+            </label>
+            <input id="productName" name="minimumAmount" type="number" class="form-control validate" value="{{coupon.minimumAmount}}"  required />
+            <input type="hidden" value="{{coupon._id}}" name="id">
+          </div>
+       </div>
+       
+       </div>
+       <div class="col-9 btns" style="display: flex; justify-content: space-between; padding-top: 10%;">
+            <button  class="btn btn-primary">Submit Now</button>
+          </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{>adminBottom}}

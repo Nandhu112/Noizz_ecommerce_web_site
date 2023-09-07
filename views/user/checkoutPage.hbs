@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+</head>
+<body>
+  <section class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 mb-4">
+                    <form class="pay-form">
+                        <!-- Checkout -->
+                        <div class="card shadow-3 border">
+                            <div class="p-4">
+                                <h5 class="card-title mb-3">Checkout</h5>
+                                <hr class="my-4" />
+                                <h5 class="card-title mb-3">Shipping info</h5>
+                               
+                                <div class="row mb-3">
+
+                                   {{#each address}}
+                    <div class="col-lg-4 mb-3">
+                      <div style="background-color: rgba(238, 235, 235, 0.829); color: rgb(44, 39, 39);"
+                        class="form-check h-100 border rounded-3">
+                       
+                        <div class="p-2">
+                           <form id="myForm"></form>
+                          <input class="form-check-input" value="{{this._id}}" type="radio"
+                            name="addressForDelivery" id="flexRadioDefault1" onclick="handleClick(this)"  >
+                            </form>
+
+                          <label class="form-check-label" for="flexRadioDefault1">
+
+                            
+                            {{this.firstname}} <br>
+                            {{this.firstname}} <br>
+                            {{this.state}} <br>
+                            {{this.address1}} <br>
+                            {{this.address2}} <br>
+                            {{this.city}} <br>
+                            {{this.pincode}} <br>
+                            {{this.mobile}} <br>
+
+                            {{!-- {{this.firstname}}</br> --}}
+                            
+                            3-4 days via Fedex
+                                  
+
+                          </label>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    {{/each}}
+                                        
+                                       
+                                    </div>
+                                <div class="row ldr">
+                                    <hr>
+                                </div>
+                                <div class="row mb-3">
+                                  
+                                   <div class="col-md-6" style="display: flex;">
+							<div class="cart-detail bg-light p-3 p-md-4" >
+
+								<h3 class="billing-heading mb-4">Payment Method</h3>
+								<div class="form-group" style="width: 250px;">
+									<div class="col-md-12">
+										<div class="radio">
+											<label><input type="radio" name="paymentMethod" id="COD" value="COD"
+													class="mr-2">Cash On Delivery</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<div class="radio">
+											<label><input type="radio" name="paymentMethod" id="ONLINE" value="ONLINE"
+													class="mr-2">Online Payment</label>
+										</div>
+									</div>
+								</div>
+
+
+                <br>
+								<p><a href="#" id="getDataButton" class="btn btn-primary py-3 px-4">Place an order</a>
+								</p>
+							</div>
+               <div class="basket-module" style="padding-left: 10%;">
+                <label for="promo-code">Enter a promotional code</label>
+                <input id="promo-code" type="text" name="promo-code"  class="promo-code-field "  style="margin-top: 10px; padding: 1px; font-size: 16px; border: none; border-radius: 5px; color: #333; background-color: #f1efef; width: 200px;">
+									<span id="couponErr"></span>
+                
+                <button style="margin-left: 65px; margin-top: 10px;" class="btn btn-primary "onclick="applyCoupon()">Apply</button>
+
+            </div>
+
+
+						</div>
+                                    
+                                    
+                                </div>
+
+                              
+                            </div>
+                        </div>
+
+                        <!-- Checkout -->
+                </div>
+                <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                    <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+                        <h6 class="mb-3">Summary</h6>
+                        <div class="d-flex justify-content-between" >
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2" id="total"> {{this.total}}
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Discount:</p>
+                            <p class="mb-2 text-danger">
+                                <span id="discountLabel">
+                                  
+                                            <strong>Not Applied</strong>
+                                        
+                                </span>
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                           
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Shipping cost:</p>
+                            <p class="mb-2">Free</p>
+                        </div>
+                        <hr />
+                        <div style="display: flex; flex-direction: column; ">
+                          <div style="display: flex;">
+                          <p class="mb-2">Wallet amount :</p>
+                           <p  style="padding-left: 14%;">{{this.wallet.balance}}</p>
+
+                          </div>
+          <div class="form-check" style="padding-bottom: 10%;">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" onclick="walletRadioClick(this)">
+            <label class="form-check-label" for="exampleCheck1">Use wallet</label>
+
+          </div>
+          <div style="display:inline-flex;">
+            <p class="mb-2">Total price:</p>
+            <p class="mb-2 text-danger fw-bold" id="totalValue" style="padding-left: 14%;">{{this.total}}</p>
+          </div>
+        </div>                  
+                        <hr />
+                        
+                        <h6 class="text-dark my-4">Items in cart</h6>
+                          {{#each cartItems}}
+                              <div class="d-flex flex-wrap mt-4">
+                                <!-- Retrieve category data -->
+                                <div class="me-3 position-relative" >
+                                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary" style="background-color: #eb2109;">
+                                   {{this.quantity}}
+                                  </span >
+                                  <img src="/images/{{this.product._id}}0.jpg" style="height: 96px; width: 96px;" class="img-sm rounded border" />
+                                </div>
+                                <div>
+                                  <h6 href="#" class="nav-link" style="margin: 0%;padding: 0%; text-transform: capitalize; width: 130px;">
+                                  {{this.product.Name}}
+                                  </h6>
+                                 
+                                 
+                                  
+                                </div>
+                              </div>
+                          {{/each }}
+                          
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </section>
+  
+  
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <script>
+  let addressId;
+
+  function handleClick(element) {
+    // Get the value of the selected radio button
+    addressId = element.value;
+    console.log("Selected Value:", addressId);
+
+    // AJAX call inside the handleClick function
+    $.ajax({
+      url: '/changePrimaryAddress',
+      data: {
+        addressId: addressId
+      },
+      method: 'post',
+      success: (response) => {
+        console.log("succeeded ");
+      },
+      error: (error) => {
+        console.log("failed ", error);
+      }
+    });
+  }
+</script>
+
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			const getDataButton = document.getElementById("getDataButton");
+			getDataButton.addEventListener("click", function () {
+				
+			
+
+				const codRadioButton = document.getElementById("COD");
+				const onlineRadioButton = document.getElementById("ONLINE");
+
+      
+
+				const totalElement = document.getElementById("total");
+				const total = parseFloat(totalElement.textContent);
+
+       
+
+        
+
+				let paymentMethod;
+				if (codRadioButton.checked) {
+					paymentMethod = codRadioButton.value;
+				} else if (onlineRadioButton.checked) {
+					paymentMethod = onlineRadioButton.value;
+				} else {
+			
+          Swal.fire('Select a  Payment Method')
+
+				}
+
+				checkout()
+			function checkout() {
+      const totalElement = document.getElementById("totalValue");
+			const totals = totalElement.textContent;
+      console.log(totals,'chkkkkk totalss')
+
+					console.log("ajjx checkout");
+					$.ajax({
+						url: '/checkout',
+						data: {
+							paymentMethod: paymentMethod,
+							total: totals
+						},
+						method: 'post',
+						success: (response) => {
+							console.log("succeeded ajjx")
+							if (response.checkoutcomplete) {
+                console.log('chkkkkkkkk cod')
+								window.location.href = '/orderSuccess'
+							}
+							else {
+								{{!-- alert("Error during checkout "); --}}
+								razorpayPayment(response)
+							}
+						}
+					});
+       
+				}
+			});
+		});
+
+    function razorpayPayment(order) {
+     console.log("here2")
+     let options = {
+      "key": "rzp_test_m6zZEYiHS8zKwF", // Enter the Key ID generated from the Dashboard
+      "amount": order.response.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Noizz", //your business name
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.response.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+      "handler": function (response) {
+
+
+       verifyPayment(response, order)
+      },
+      "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+       "name": "Gaurav Kumar", //your customer's name
+       "email": "gaurav.kumar@example.com",
+       "contact": "9000090000"  //Provide the customer's phone number for better conversion rates 
+      },
+      "notes": {
+       "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+       "color": "#3399cc"
+      }
+     };
+
+     var rzp1 = new Razorpay(options);
+     rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+     console.log("in verify payment")
+     $.ajax({
+      url: '/verifyPayment',
+      data: {
+       payment,
+       order
+      },
+      method: 'post',
+      success: (response) => {
+       if (response.status) {
+        window.location.href = '/orderSuccess'
+       } else {
+        alert("Payment failed")
+       }
+      }
+
+     })
+    }
+  
+
+	</script>
+  <script>
+  // Define a variable to keep track of the original total value
+
+
+  function walletRadioClick(radioButton) {
+      let originalTotal = parseFloat("{{this.total}}");
+    const totalElement = document.getElementById("totalValue");
+    let Wallet = parseFloat("{{this.wallet.balance}}");
+
+    if (radioButton.checked) {
+      if (originalTotal < Wallet) {
+        totalElement.textContent = 1;
+      } else {
+        totalElement.textContent = originalTotal - Wallet;
+      }
+    } else {
+      totalElement.textContent = originalTotal; // Revert to the original total
+    }
+  }
+</script>
+
+<script>
+
+  function applyCoupon() {
+      event.preventDefault();
+			 const couponCode = document.getElementById("promo-code").value
+			 const totalElement = document.getElementById("totalValue");
+			 const total = parseFloat(totalElement.textContent);
+       console.log(total)
+
+            $.ajax({
+                url: '/verifyCoupon/' + couponCode,
+                method: 'GET',
+                success: (response) => {
+                    if (response.status == true) {
+
+                        $.ajax({
+                            url: '/applyCoupon?coupon=' + couponCode+"&&total="+total,
+                            method: 'GET',
+                            success: (response) => {
+                                console.log(response, '---');
+                                if (response.status == true) {
+									console.log("in here ")
+                                    document.getElementById('couponErr').style.color = '#19ff11'
+                                    document.getElementById('couponErr').innerText = "Coupon Applied SuccessFully"
+                                    // document.getElementById('subTotal').innerText = total - response.discountAmount
+                                    document.getElementById('totalValue').innerText = total - response.discountAmount
+                                  //  document.getElementById('totalVal').value = Math.floor(total - response.discountAmount)
+                                  //  document.getElementById('couponOffer').innerText = response.discount + '%'
+                                  //  document.getElementById('discountPercentage').value = response.discount
+                                  //  document.getElementById('discountAmount').value = Math.ceil(response.discountAmount)
+
+
+                                } else {
+									console.log("in here22 ")
+                                    document.getElementById('couponErr').style.color = "#ff0707"
+                                    document.getElementById('couponErr').innerText = response.message
+                                }
+
+                            }
+                        })
+                    } else {
+                        document.getElementById('couponErr').style.color = "#ff0707"
+                        document.getElementById('couponErr').innerText = response.message
+
+                        setTimeout(function () {
+                            location.reload()
+                        }, 5000)
+                    }
+
+                }
+            })
+        }
+
+</script>
+</body>
+</html>
+

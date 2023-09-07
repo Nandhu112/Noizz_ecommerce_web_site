@@ -1,0 +1,535 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Watch shop | eCommers</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/noizz/logo.png" alt="" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/img/noizz/logo.png" alt="" style="width: 150px;"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                     <li><a href="/home">Home</a></li>
+                                    <li><a href="/allProducts">shop</a></li>
+                                  
+                                    <li ><a href="#">Account</a>
+                                        <ul class="submenu">
+                                            <li><a href="/getProfilePage"> Profile</a></li>
+                                            <li><a href="/logout"> Logout</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                   
+                             
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                 
+ <div style="display: flex;">
+    <div>
+        <i class="fa fa-heart" style="font-size: 24px; "></i>
+        <a href="/wishlist"><span class="fa-solid fa-cart-shopping" id="lblCartCount">{{this.userWishlistCount}}</span></a>
+    </div>
+
+    {{!-- {{#if cartCounts}} --}}
+    <div style="margin-left: 20px;">
+        <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+        <a href="/carts"><span class="fa-solid fa-cart-shopping" id="lblCartCount">{{this.cartCount}}</span></a>
+    </div>
+    {{!-- {{else}}
+    <div style="margin-left: 20px;">
+        <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+        <a href="/carts"><span class="fa-solid fa-cart-shopping" id="lblCartCount">0</span></a>
+    </div>
+    {{/if}} --}}
+</div>
+        
+                    
+                      </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+
+     <section id="gallery">
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+          <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+          <link rel="stylesheet" href="cart/fonts/icomoon/style.css">
+
+          <link rel="stylesheet" href="cart/css/bootstrap.min.css">
+          <link rel="stylesheet" href="cart/css/magnific-popup.css">
+          <link rel="stylesheet" href="cart/css/jquery-ui.css">
+          <link rel="stylesheet" href="cart/css/owl.carousel.min.css">
+          <link rel="stylesheet" href="cart/css/owl.theme.default.min.css">
+
+
+          <link rel="stylesheet" href="cart/css/aos.css">
+
+          <link rel="stylesheet" href="cart/css/style.css">
+
+        </head>
+
+        <body>
+          
+        {{#if (equal this.cartCount 0)}}
+      
+        <div id="lottie-container" style="width: 20%; margin-left: 40%;"></div>
+        {{else}}
+ <div class="site-wrap" style="margin-left: 80px;">
+  <div class="site-section">
+    <div class="container" style="display: flex; margin-bottom: 0;">
+            <div class="row lg-12">
+              <div class="site-blocks-table">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th class="product-thumbnail">Image</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                                <th class="product-remove">Remove</th>
+                              </tr>
+                            </thead>
+                            {{#each products}}
+                            <tbody id="">
+                              <tr>
+
+                                <td class="product-thumbnail">
+                                  <img src="/images/{{this.product._id}}0.jpg" alt="Image" class="img-fluid">
+                                </td>
+                                <td class="product-name">
+                                  <h2 class="h5 text-black">{{this.product.Name}}</h2>
+                                  {{#if (lt this.product.Stock 0)}}
+                                   <p  class="text-danger" style="padding-left: 1px;">Out of stok</p>
+                                   {{/if}}
+                                </td>
+                                <td id="{{this.product}}7"><span id="{{this.product}}6">{{this.product.Price}}</span></td>
+                                <td>
+                                  <div class="input-group mb-3" style="max-width: 120px;min-width: 120px">
+                                    <div class="input-group-prepend">
+                                      <button
+                                        onclick="changeQuantity('{{this.product.Stock}}','-{{this.product.Price}}','{{this.product.Price}}','{{this._id}}','{{this.product._id}}',-1)"
+                                        class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                    </div>
+
+                                    <input type="text" class="form-control text-center" id="{{this.product._id}}5"
+                                      value="{{this.quantity}}" placeholder="{{this.quantity}}"
+                                      aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    
+                                    <div class="input-group-append">
+                                
+                                    
+                                    
+                                      <button
+                                        onclick="changeQuantity('{{this.product.Stock}}','{{this.product.Price}}','{{this.product.Price}}','{{this._id}}','{{this.product._id}}',1)"
+                                        class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                        
+                                    </div>
+                                  
+                                    <p id="{{this.product._id}}10" class="text-danger" style="padding-left: 38px;"></p>
+                                    
+                                  
+
+                                  </div>
+
+                                </td>
+                                <td>
+                                  <span id="{{this.product._id}}"></span>
+                                </td>
+
+                                <td><button class="btn btn-danger"
+                                    onclick="removeProduct('{{this._id}}','{{this.product._id}}')">X</button></td>
+
+                              </tr>
+
+
+                            </tbody>
+                            {{/each}}
+                          </table>
+
+                        </div>
+
+                  </div>
+                   
+                  {{!-- <div class="col-md-6 pl-5">
+                    <div class="row justify-content-end">
+                      <div class="col-md-7"> --}}
+                      <div style="margin-left: 100px;">
+                         <div >
+                           <div class="col-md-7">
+                            <div style="padding-left: 40px;">
+                              <div class="row">
+                                <div >
+                                  <h5 class="text-black h4 text-uppercase" style="padding-left: 10px;">Cart Totals</h5>
+                                </div>
+                              </div>
+                              <div class="row mb-3">
+                                {{#each products}}
+                                <div class="col-md-6">
+                                  <span class="text-black">{{this.product.Name}}</span>
+                                </div>
+
+                                <div class="col-md-6 text-right">
+                                  <span id="{{this.product._id}}1"></span>
+                                </div>
+                                {{/each }}
+                              </div>
+
+                              <div class="row mb-5">
+                                <div class="col-md-6">
+                                  <span class="text-black">Total</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+
+                                  <h5 id="totals">{{this.total}}</h5>
+                                  {{!-- <h1 id="totals"></h1> --}}
+                                </div>
+                               </div>    
+                           </div>  
+                              <div class="row">
+                                <div class="col-md-12">
+                                  
+                                    <button class="btn btn-success" onclick="checkout()" >Proceed To
+                                      Checkout</button>
+                                
+
+                                </div>
+                              </div>
+                          
+                        
+                              </div>
+                              
+
+                            
+                              </div>
+                            </div>
+                          </div>
+                        {{!-- </div>
+                    </div>
+                  </div> --}}
+          </div>
+        </div>
+  </div>
+  
+                <div class="col-md-6" style="margin-left: 90px;">
+                    <div class="row mb-5">
+
+                      <div class="col-md-6">
+                        <a href="/home">
+                          <button class="btn btn-success">Continue Shopping</button>
+                        </a>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+  {{/if}}
+        </body>
+
+        </html>
+
+      </section>
+    
+    {{>userfooter}}
+   
+
+  
+</body>
+</html>
+ <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+      <!-- Jquery, Popper, Bootstrap -->
+      <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+      <script src="./assets/js/popper.min.js"></script>
+      <script src="./assets/js/bootstrap.min.js"></script>
+      <!-- Jquery Mobile Menu -->
+      <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+      <!-- Jquery Slick , Owl-Carousel Plugins -->
+      <script src="./assets/js/owl.carousel.min.js"></script>
+      <script src="./assets/js/slick.min.js"></script>
+
+      <!-- One Page, Animated-HeadLin -->
+      <script src="./assets/js/wow.min.js"></script>
+      <script src="./assets/js/animated.headline.js"></script>
+      <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+      <!-- Scrollup, nice-select, sticky -->
+      <script src="./assets/js/jquery.scrollUp.min.js"></script>
+      <script src="./assets/js/jquery.nice-select.min.js"></script>
+      <script src="./assets/js/jquery.sticky.js"></script>
+
+      <!-- contact js -->
+      <script src="./assets/js/contact.js"></script>
+      <script src="./assets/js/jquery.form.js"></script>
+      <script src="./assets/js/jquery.validate.min.js"></script>
+      <script src="./assets/js/mail-script.js"></script>
+      <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+      <!-- Jquery Plugins, main Jquery -->
+      <script src="./assets/js/plugins.js"></script>
+      <script src="./assets/js/main.js"></script>
+
+      <script src="cart/js/jquery-3.3.1.min.js"></script>
+      <script src="cart/js/jquery-ui.js"></script>
+      <script src="cart/js/popper.min.js"></script>
+      <script src="cart/js/bootstrap.min.js"></script>
+      <script src="cart/js/owl.carousel.min.js"></script>
+      <script src="cart/js/jquery.magnific-popup.min.js"></script>
+      <script src="cart/js/aos.js"></script>
+
+      <script src="cart/js/main.js"></script>
+
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js">
+      
+      </script>
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+       
+      {{#each products}}
+
+      <script>
+
+        document.getElementById('{{this.product._id}}').innerHTML = {{ this.product.Price }}* {{ this.quantity }};
+
+
+      </script>
+
+      {{/each}}
+
+
+      {{#each products}}
+
+      <script>
+
+        document.getElementById("{{this.product._id}}1").innerHTML = {{ this.product.Price }}* {{ this.quantity }};
+
+
+      </script>
+
+      {{/each}}
+
+      <script>
+
+        function changeQuantity(Stock,tPrice, price, cartId, proId, count) {
+          const changeQElement = document.getElementById(proId + "5");
+          const changeQ = changeQElement.value;
+          if(changeQ==1&&count==-1){
+            Swal.fire({
+  title: 'Are you sure?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    count = parseInt(count)
+          console.log("ajjx");
+          $.ajax({
+            url: '/changeProductQuantity',
+            data: {
+              cart: cartId,
+              product: proId,
+              count: count,
+              quantity: changeQ
+            },
+             method: 'post',
+            success: (response) => {
+              location.reload()
+            }
+            })
+ 
+  }
+})
+
+          }
+          else{
+            count = parseInt(count)
+          console.log("ajjx");
+          $.ajax({
+            url: '/changeProductQuantity',
+            data: {
+              cart: cartId,
+              product: proId,
+              count: count,
+              quantity: changeQ
+            },
+            method: 'post',
+            success: (response) => {
+              console.log("succeeded ajjx")
+              if (response.removeProduct) {
+
+                alert("product Removed from cart")
+                location.reload()
+              }
+              else if (response.outOfStock) {
+                console.log('outofstock')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Only '+Stock+ '  left',
+                
+                  })
+               
+              }
+              else {
+
+                document.getElementById(proId +'10').innerHTML =" "
+                const QElement = document.getElementById(proId + "5");
+                const qhange = QElement.value;
+
+                console.log(price, "heree");
+
+                document.getElementById(proId).innerHTML =
+                  document.getElementById(proId + '1').innerHTML = price * qhange
+
+                let totalsElement = document.getElementById("totals");
+                let innerHTMLValue = totalsElement.innerHTML;
+                let total = parseInt(innerHTMLValue)
+                let intTprice = parseInt(tPrice)
+                document.getElementById('totals').innerHTML = intTprice + total
+
+
+
+              }
+            }
+          });
+          }
+          
+
+        }
+
+        function removeProduct(cartId, proId) {
+  Swal.fire({
+  title: 'Are you sure?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+            url: '/removeCartProduct',
+            data: {
+              cart: cartId,
+              product: proId
+            },
+
+            method: 'post',
+            success: (response) => {
+              console.log("succeeded ajjx")
+              if (response.removeProduct) {
+                
+                location.reload()
+
+              }
+
+            }
+          });
+   
+  }
+})
+          
+        }
+      </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+    integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+         <script>
+        const container = document.querySelector('#lottie-container');
+          const animation = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/animations/animation_llyzq91n.json',
+        });
+    </script>
+    <script>
+	function checkout(){
+		$.ajax({
+			url:"/checkStock",
+			method:'get',
+			success: (response)=>{
+				if(response.status){
+				 window.location.href = '/placeorder'
+				}else{
+				Swal.fire({
+								icon: 'warning',
+								title: 'Adjust Product quantity',
+								showConfirmButton: false,
+								timer: 5000
+							})
+							location.reload()
+				}
+			}
+		})
+		}
+	</script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

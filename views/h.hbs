@@ -1,0 +1,262 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Watch shop | eCommers</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/noizz/logo.png" alt="" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/img/noizz/logo.png" alt="" style="width: 150px;"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                    <li><a href="/home">Home</a></li>
+                                   
+                                    <li><a href="about.html">about</a></li>
+                                    <li class="hot"><a href="#">Products</a>
+                                        <ul class="submenu">
+                                            {{!-- {{#if GuitarProduct || DrumsProduct || KeyProduct}} --}}
+                                              <li><a href="/allProducts"> All Products</a></li>
+                                              {{!-- {{else}} --}}
+                                            <li><a href="/GuitarProduct"> Guitars</a></li>
+                                            <li><a href="/DrumProduct"> Drums</a></li>
+                                             <li><a href="/KeyProduct">Keyborads</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                 <form class="form-inline" method="get" action="/search">
+                        <div >
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="name">
+                            <button class="btn btn-outline-primary" type="submit" >Search</button>
+                        </div>
+                    </form>
+                                
+                                <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
+                        
+                                          
+                           <div class="main-menu d-none d-lg-block">
+                                <nav>                                                
+                               
+                        </div>
+                            </ul>
+                  
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+     <div class="container-fluid ml-5">
+            <div class="row">
+              
+               
+
+                <section id="gallery">
+                    <div class="container">
+                        <div class="row py-3">
+
+                              {{!-- {{#each products}}
+
+                             <div class="col-lg-3 col-sm-6 mt-3">
+                              <a href="/productdetails?id={{this._id}} " >
+                                <div class="card">
+                                    <img src="/images/{{this._id}}0.jpg" alt="product-image"  
+                                        class="img-fluid mx-auto d-block" alt="img">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{this.Name}}</h5>
+                                        <p class="card-text">₹{{this.Price}}</p>
+                                        {{!-- <a href="#" class="btn btn-outline-success btn-sm">Buy</a> --}}
+                                        {{!-- <a href="" class="btn btn-outline-danger btn-sm"><i
+                                                class="far fa-heart"></i></a> --}}
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                             {{/each}}<br><br>
+                             
+
+                            {{#each GuitarProduct}}
+
+                             <div class="col-lg-3 col-sm-6 mt-3">
+                              <a href="/productdetails?id={{this._id}} " >
+                                <div class="card">
+                                    <img src="/images/{{this._id}}0.jpg" alt="product-image"  
+                                        class="img-fluid mx-auto d-block" alt="img">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{this.Name}}</h5>
+                                        <p class="card-text">₹{{this.Price}}</p>
+                                        {{!-- <a href="#" class="btn btn-outline-success btn-sm">Buy</a> --}}
+                                        {{!-- <a href="" class="btn btn-outline-danger btn-sm"><i
+                                                class="far fa-heart"></i></a> --}}
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                             {{/each}}<br><br>
+
+
+                             {{#each DrumsProduct}}
+
+                        <div class="col-lg-3 col-sm-6 mt-3">
+                              <a href="/productdetails?id={{this._id}} " >
+                                <div class="card">
+                                    <img src="/images/{{this._id}}0.jpg" alt="product-image"  
+                                        class="img-fluid mx-auto d-block" alt="img">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{this.Name}}</h5>
+                                        <p class="card-text">₹{{this.Price}}</p>
+                                        {{!-- <a href="#" class="btn btn-outline-success btn-sm">Buy</a> --}}
+                                        {{!-- <a href="" class="btn btn-outline-danger btn-sm"><i
+                                                class="far fa-heart"></i></a> --}}
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                             {{/each}}<br><br>
+
+
+                             {{#each KeyProduct}}
+                            
+                            <div class="col-lg-3 col-sm-6 mt-3">
+                              <a href="/productdetails?id={{this._id}} " >
+                                <div class="card">
+                                    <img src="/images/{{this._id}}0.jpg" alt="product-image" 
+                                        class="img-fluid mx-auto d-block" alt="img">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{this.Name}}</h5>
+                                        <p class="card-text">₹{{this.Price}}</p>
+                                        {{!-- <a href="#" class="btn btn-outline-success btn-sm">Buy</a> --}}
+                                        {{!-- <a href="" class="btn btn-outline-danger btn-sm"><i
+                                                class="far fa-heart"></i></a> --}}
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+
+                             {{/each}} --}}
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </section>
+                <br><br><br>
+               
+
+              
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js">
+            </script>
+
+            {{>userfooter}}
+   
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+
+    <!-- JS here -->
+
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="./assets/js/jquery.scrollUp.min.js"></script>
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+    
+</body>
+</html>

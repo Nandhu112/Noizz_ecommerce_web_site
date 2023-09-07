@@ -1,0 +1,65 @@
+{{>adminTop}}
+
+
+
+<section>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between;">
+    <div class="row mt-5" style="padding-left: 40px;width: 160px;">
+      {{!-- <a href="/admin/add-User" class="btn btn-success  ">Add User</a> --}}
+      <a href="/admin/addCategory" class="btn btn-success  ">Add Category</a>
+
+    </div>
+    <div class="row mt-5" style="padding-right: 40px;width: 190px;">
+
+      <a href="/admin//Unlisted-Category" class="btn btn-success  ">Unlisted Category</a>
+    </div>
+    </div>
+    <table class="table table-striped mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Category ID</th>
+          <th scope="col">Name</th>
+          {{!-- <th scope="col">Email</th> --}}
+          {{!-- <th scope="col">Password</th> --}}
+          {{!-- <th scope="col">admin</th> --}}
+          
+          {{!-- <th>Image</th> --}}
+          <th style="text-align: center;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each category}}
+        <tr>
+          <th scope="row">{{this._id}}</th>
+          <td>{{this.Category}}</td>
+          {{!-- <td>{{this.Email}}</td> --}}
+          {{!-- <td>{{this.Password}}</td> --}}
+          {{!-- <td>{{this.Admin}} </td> --}}
+     
+
+          <td><button class="btn btn-primary btn-sm btn-block"
+              onclick="window.location.href='/admin/editCategoryPage?categoryId={{this._id}}&&categoryName={{this.Category}}'">edit</button>
+            {{!-- <button class="btn btn-danger btn-sm btn-block"
+              onclick="window.location.href='/admin/admindeleteuser?userId={{this._id}}'">delete</button> --}}
+
+            {{#if this.Listed}}
+            <button class="btn btn-warning btn-sm btn-block"
+              onclick="window.location.href='/admin/categoryUnlist?categoryId={{this._id}}&&categoryName={{this.Category}}'">Un_List</button>
+          </td>
+          {{else}}
+          <button class="btn btn-success btn-sm btn-block"
+            onclick="window.location.href='/admin/categoryRelist?categoryId={{this._id}}&&categoryName={{this.Category}}'">Re-List</button>
+          {{/if}}
+        </tr>
+        </tr>
+        {{/each}}
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+{{>adminBottom}}
