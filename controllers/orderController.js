@@ -5,6 +5,7 @@ const profileHelper = require('../helpers/profileHelper')
 const dashboardHelper = require('../helpers/dashboardHelper') 
 const categoyHelpers = require('../helpers/categoryHelper');
 const productHelper = require('../helpers/productHelper');
+const countHelper = require("../helpers/countHelper")
 
 const checkStock =async (req,res)=>{
   productHelper.checkStock(req.session.user1._id).then((response)=>{
@@ -84,12 +85,14 @@ const placeOrder = async (req, res) => {
     }
 
     const getOrderDetails= async(req,res)=>{
+      const  cartCount= await countHelper.cartCount(req.session.user1._id) 
+      const  whishlistCount = await countHelper.wishlistCount(req.session.user1._id)  
       console.log('chkkkkkkk  getOrderDetails')
       const orderId = req.query.OrderId
       const order = await orderHelper.getOrderDetails(orderId)
       // console.log(req.query,"in ac getorderdetails");
       console.log(order,"in ac getorderdetails");
-      res.render('./admin/admin-orderdetails',{order})
+      res.render('./admin/admin-orderdetails',{order,cartCount,whishlistCount})
     
     }
 

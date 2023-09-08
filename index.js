@@ -79,7 +79,7 @@ app.use('/admin', adminRouter);
     return parseInt(a) - parseInt(b);
   });
  
-app.listen(3000,()=>{
+app.listen(3001,()=>{
     console.log("server is running");       
 })
 

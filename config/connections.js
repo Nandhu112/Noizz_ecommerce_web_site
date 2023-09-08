@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
+const{MONGO_URL}=process.env
 
 const connectDB = () => {
-  return mongoose.connect('mongodb://127.0.0.1:27017/noizz_user', {
+  return mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

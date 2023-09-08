@@ -1,107 +1,119 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Page Title</title>
-        <link rel="stylesheet" href="/stylesheets/ordersPage.css">
-    </head>
-    <body>
-<header>
-  <h1>My Orders</h1>
-  <p>View all of your pending orders here.</p>
- <a href="/home"><p><b>HOME</b></p></a>
-</header>
-<div style="width: 1000px; align-items: center; padding-left: 300px;">
-{{#each orders}}
-<div class="container" style="align-items: center;">
-  <div class="heading"  >
-    {{!-- <div class="odetails-1">
-      <p><b>Order</b></p>
-      <p>#R86F854G7665</p>
-    </div> --}}
-    <div >
-      <p>Order Placed: {{ formatDate this.date}}</p>
 
-    </div>
-
-    {{!-- <button> --}}
-      {{!-- <p>Return Home</p> --}}
-           {{#if (equal this.status "cancelled")}} 
-      <button  style="font-size: 20px; text-align: center;" class="btn btn-warning">Status: {{this.status}}</button>
-      {{else}}
-      <button  style="font-size: 20px; text-align: center;" >Status: {{this.status}}</button>
-       {{/if}}
-      <p>payment method: {{this.paymentMethod}}</p>
-        
-    {{!-- </button> --}}
-  </div>
-<a style="" href="/invoice?id={{this._id}}"><button class="btn btn-success">Invoice Download</button></a>    
-  <hr>
-{{#each this.products}}
-  <div class="card-container">
-    <div class="card">
-      <div class="img">
-        <img src="/images/{{this.product._id}}0.jpg"  alt="Nike Air Jordan 1">
-      </div>
-      <div class="parent">
-        <div class="content">
-          <div >
-            <h1 style="font-size: 10px;">{{this.product.Name}}</h1>
+<body>
+  {{#each orders}}
+  <section class="h-100 gradient-custom">
+  <div class="container py-5 h-100" >
+    <div class="row d-flex justify-content-center align-items-center h-100 " >
+      <div class="col-lg-10 col-xl-8" >
+        <div class="card" style="border-radius: 10px; ">
+          {{#if (equal this.status "cancelled")}}
+            <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(198, 31, 31);" >
             
+            <h5  style="color: aliceblue;">Order Cancelled!<span ></span>!</h5>
+       
           </div>
-          <div >
-            {{!-- <p>Size: 10</p> --}}
-            <p style="font-size: 10px;">Qty: {{this.quantity}}</p>
-            {{!-- <p><b>₹{{this.product.Price}}</b></p> --}}
+          {{else}}
+          <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(37, 43, 38);" >
+            
+            <h5 style="color: aliceblue;" >Thanks for your Order, <span >{{this.deliveryDetails.firstname}}</span>!</h5>
+       
           </div>
-          <div class="sec1">
-            <p style="font-size: 10px;">Price:{{this.product.Price}}</p>
-            {{!-- <h2>₹{{this.product.Price}}</h2> --}}
-            <div class="sec2">
-            <div>
-                    <p style="font-size: 10px;">Delivery address:</p>
-            </div>
+          {{/if}}
           
-            <div>
-            <h3 style="font-size: 10px;">{{../this.deliveryDetails.firstname}}</h3>
-            <h3 style="font-size: 10px;">{{../this.deliveryDetails.address1}}</h3>
-            <h3 style="font-size: 10px;">{{../this.deliveryDetails.city}}</h3>
-            </div>
-           
-          </div>
-          </div>
-        </div>
-        <div>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
           
-    
-        </div>
-      </div>
-    </div>
-    <hr>
-  </div>
-  
-  {{/each}}
-  
+            
+            </div>
+            {{#each this.products}}
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="/images/{{this.product._id}}0.jpg"
+                      class="img-fluid" alt="Phone">
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">{{this.product.Name}}</p>
+                  </div>
+               
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 small">Qty: {{this.quantity}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 small">₹{{this.product.Price}}</p>
+                  </div>
+                   {{#if (notEqual this.proStatus "cancelled")}} 
+                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <button class="btn btn-danger" onclick="cancelOrderProduct('{{this.product._id}}','{{../this._id}}','{{this.product.Price}}','{{../this.totalAmount}}')">X</button>
+                  </div>
+                  {{/if}}
+                </div>
+                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                <div class="row d-flex align-items-center">
+                 
+                  <div class="col-md-10">
+                   
+                    
+                  </div>
+                </div>
+     
+     {{#if (equal this.proStatus "cancelled")}} 
+      <button  style="font-size: 20px; text-align: center;background-color:  rgb(201, 54, 54);color: #e0e0e0;" class="btn btn-warning"> {{this.proStatus}}</button>
+      {{else}}
+      <button style="font-size: 20px; text-align: center;background-color: rgb(79, 79, 90);color: #e0e0e0;border-radius: 5px;" > {{this.proStatus}}</button>
+       {{/if}}
 
+              </div>
+            </div>
+          {{/each }}
+           
+
+            <div class="d-flex justify-content-between pt-2">
+              <p class="fw-bold mb-0">Delivery address</p>
+             
+            </div>
+
+            <div class="d-flex justify-content-between pt-2">
+              <p class="text-muted mb-0">{{this.deliveryDetails.firstname}}</p>
+          
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <p class="text-muted mb-0">{{this.deliveryDetails.address1}}</p>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ₹ {{this.amountPaid}}</p>
+            </div>
+            
+            <div class="d-flex justify-content-between mb-5">
+              <p class="text-muted mb-0">{{this.deliveryDetails.city}}</p>
+              <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+            </div>
+          </div>
+          <div class="card-header px-4 py-5" style="display: flex; justify-content: space-between">
+            <a style="" href="/invoice?id={{this._id}}"><button class="btn btn-success">Invoice Download</button></a>  
+           
+          
    {{#if (equal this.status "placed")}} 
-    <button  onclick="cancelOrder('{{this._id}}')" >✖ CANCEL ORDER</button>
+    <button class="btn btn-danger"  onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
      {{/if}}
       {{#if (equal this.status "pending")}} 
-   <button onclick="cancelOrder('{{this._id}}')" >✖ CANCEL ORDER</button>
+   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
      {{/if}}
         {{#if (equal this.status "shipped")}} 
-   <button onclick="cancelOrder('{{this._id}}')">✖ CANCEL ORDER</button>
+   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')"> CANCEL ORDER</button>
      {{/if}}
-  <div class="card-bottom">
- 
-    {{!-- <a href="/cancelOrder?id={{this._id}}"><button >✖ CANCEL ORDER</button></a> --}}
-   
-  
-    <h1>Total Amount: ₹ {{this.amountPaid}}</h1>
-  </div>
-</div>
-{{/each}}
 
-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ {{/each }}
+</body>
+</html>
+
 <script>
     $(document).ready(function () {
   $(".card").click(function () {
@@ -114,11 +126,21 @@
     </body>
 </html>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
    function cancelOrder(orderId) {
       console.log(orderId, 'ajjx')
-     alert('hiiiiiiiiii')
-      $.ajax({
+Swal.fire({
+  title: 'Are you sure?',
+
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+         $.ajax({
         
         url: '/cancelOrder/' + orderId,     
         method: 'get',
@@ -126,5 +148,42 @@
          location.reload()
         }
       })
+  }
+})
+ 
+    }
+
+    function cancelOrderProduct(proId,orderId,proTotal,total) {
+      console.log(proId,'ajjx proId')
+      console.log(orderId,'ajjx orderId')
+Swal.fire({
+  title: 'Are you sure?',
+
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+     $.ajax({
+            url: '/cancelSingleProduct',
+            data: {
+              proId: proId,
+              orderId:orderId,
+              proTotal:proTotal,
+              total:total
+            },
+
+            method: 'post',
+            success: (response) => {
+              console.log("succeeded ajjx")
+              location.reload()
+
+            }
+          });
+  }
+})
+ 
     }
 </script>
