@@ -24,7 +24,7 @@ const getAdminLogin=async (req,res)=>{
             .catch((error) => {
               console.log('Failed to retrieve products:', error);
               // Handle error
-            });
+            });   
       
         
       }

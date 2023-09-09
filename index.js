@@ -27,8 +27,8 @@ const hbs = exphbs.create({
 	runtimeOptions: { allowProtoPropertiesByDefault: true, allowedProtoMethodsByDefault: true },   
   helpers: {
     jsonStringify: function (context) {
-      return JSON.stringify(context);
-    }
+      return JSON.stringify(context);    
+    }   
   }
 })
 
