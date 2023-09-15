@@ -1,4 +1,168 @@
- {{>adminTop}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DASHMIN - Bootstrap Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="icon" href="assets/img/noizz/logo2.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>NOIZZ</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                  
+                   
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="/admin/dashboard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-shopping-bag"></i>Products</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="/admin/adminAllproducts" class="dropdown-item">All Products</a>
+                             {{#each category }}                       
+                            <a href="/admin/getCategoryProduct?category={{this.Category}}" class="dropdown-item">{{this.Category}}</a>
+                             {{/each}}
+                            <a href="/admin/add-product" class="dropdown-item">Add Products</a>
+                        </div>
+                    </div>   
+                    <a href="/admin/allUsers" class="nav-item nav-link"><i class="fas fa-user"></i>Users</a>
+                    <a href="/admin/getAllCategory" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category </a>
+                    <a href="/admin/allOrders" class="nav-item nav-link"><i class="fa-brands fa-first-order-alt" style="color: #030a17;"></i>Orders</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-gift"></i>Coupon</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="/admin/getCouponPage" class="dropdown-item">All Coupon</a>
+                                              
+                           
+                            
+                            <a href="/admin/addcoupon" class="dropdown-item">Add Coupon</a>
+                        </div>
+                    </div> 
+                     <a href="/admin/orderDetailPDF" class="nav-link dropdown-toggle" ><i class="fa fa-file"></i>Sales Report</a>
+                    
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-image"></i>Banner</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                           <a href="/admin/bannerList" class="dropdown-item">Banner List</a>
+                             <a href="/admin/addBanner" class="dropdown-item">Add Banner</a>                  
+                            
+                        </div>
+                    </div> 
+
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                 <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                           
+                            <span class="d-none d-lg-inline-flex">Download Reports</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                           
+                           
+                           <a class="nav-link" href="/admin/totalSaleExcel">Total Sale</a>
+                           <a class="nav-link" href="/admin/todayRevenueExcel">Today Revenue</a>
+                           <a class="nav-link" href="/admin/allProductExcel">All Product</a>
+                           <a class="nav-link" href="/admin/allOrderStatusExcel">All OrderStatus</a>
+                        </div>
+                    </div>
+
+                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                           
+                            <span class="d-none d-lg-inline-flex">Date wise </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                           <label for="start">Start Date:</label>
+                  <input type="date" id="start" name="start" required>
+                
+                  <label for="end">End Date:</label>
+                  <input type="date" id="end" name="end" required>
+                
+                  <a style="color: aliceblue;" class="nav-link" href="/admin/customDate">
+                  <button class="btn btn-primary" id="customDateLink" style="margin-left: 10px;">Download</button>
+                </a>
+                           
+                           
+                        </div>
+                    </div>
+
+                     
+                      
+             
+                <div class="navbar-nav align-items-center ms-auto" style="display: flex;">
+                     
+                  
+                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                           
+                            <span class="d-none d-lg-inline-flex">Noizz Admin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                           
+                           
+                            <a href="/admin/logOut" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
   <style>
     .table {
       border-collapse: collapse;
@@ -22,14 +186,15 @@
     }
   </style> 
 <h2 style="text-align-last: center;">Sales Report</h2>
+
 {{#if orders.length}}
   <table class="table" id="productsTable">
     <thead>
       <tr>
         <th scope="col">No</th>
-        <th scope="col">Order ID</th>
         <th scope="col">Date</th>
         <th scope="col">User</th>
+        <th scope="col">Products</th>
         <th scope="col">Bill Address</th>
         <th scope="col">Payment</th>
         <th scope="col">Status</th>
@@ -44,9 +209,13 @@
      
       <tr>
         <td>{{index}}</td>
-        <td>{{order._id}}</td>
-        <td>{{order.date}}</td>
+        <td>{{formatDate order.date}}</td>
         <td>{{order.userId.Name}}</td>
+       {{#if (gt products.length 1) }}
+        <td> {{#each products}}{{product.Name}}, {{/each}}</td>
+        {{else}}
+           <td> {{#each products}}{{product.Name}} {{/each}}</td>
+       {{/if}}   
         <td>{{order.deliveryDetails.address1}}<br>{{order.deliveryDetails.mobile}}</td>
         <td>{{order.paymentMethod}}</td>
         <td>{{order.status}}</td>
@@ -68,3 +237,23 @@
 {{/if}}
 
 {{>adminBottom}}
+
+ <script>
+                  const customDateLink = document.getElementById('customDateLink');
+                  const startDateInput = document.getElementById('start');
+                  const endDateInput = document.getElementById('end');
+                
+                  customDateLink.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent the default link behavior
+                
+                    const startDate = startDateInput.value;
+                    const endDate = endDateInput.value;
+
+                    console.log()
+                
+                    setTimeout(() => {
+                      const url = `/admin/customDate?start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}`;
+                      window.open(url, '_blank');
+                    }, 1000); 
+                  });
+                </script>

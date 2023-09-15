@@ -160,7 +160,7 @@
                                 </td>
                                 <td class="product-name">
                                   <h2 class="h5 text-black">{{this.product.Name}}</h2>
-                                  {{#if (lt this.product.Stock 0)}}
+                                  {{#if (lt this.product.Stock 1)}}
                                    <p  class="text-danger" style="padding-left: 1px;">Out of stok</p>
                                    {{/if}}
                                 </td>
@@ -377,6 +377,16 @@
         function changeQuantity(Stock,tPrice, price, cartId, proId, count) {
           const changeQElement = document.getElementById(proId + "5");
           const changeQ = changeQElement.value;
+          const changeQAsNumber = parseInt(changeQ, 10);
+          if(changeQ<Stock&&count==1){
+          var inputElement = document.getElementById(proId + "5");
+          inputElement.value = changeQAsNumber+count;
+          }
+          else if(count==-1){
+              var inputElement = document.getElementById(proId + "5");
+          inputElement.value = changeQAsNumber+count; 
+          }
+          console.log(changeQ,'chkkkkk QQ')
           if(changeQ==1&&count==-1){
             Swal.fire({
   title: 'Are you sure?',

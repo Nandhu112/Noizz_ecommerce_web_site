@@ -20,8 +20,14 @@
                                 <h5 class="card-title mb-3">Shipping info</h5>
                                
                                 <div class="row mb-3">
-
-                                   {{#each address}}
+                    {{#if Noaddress}} 
+                    <div style="display: grid; display: block; margin: 0 auto; text-align: center;">
+                      <div id="lottie-container" style="width: 20%; margin-left: 40%;"></div>
+                      <a href="/addAddress"> Add address</a>     
+                    </div>
+                          
+                    {{/if}}
+                   {{#each address}}
                     <div class="col-lg-4 mb-3">
                       <div style="background-color: rgba(238, 235, 235, 0.829); color: rgb(44, 39, 39);"
                         class="form-check h-100 border rounded-3">
@@ -55,7 +61,7 @@
                       </div>
                     </div>
                     {{/each}}
-                                        
+                               
                                        
                                     </div>
                                 <div class="row ldr">
@@ -90,11 +96,24 @@
 								</p>
 							</div>
                <div class="basket-module" style="padding-left: 10%;">
-                <label for="promo-code">Enter a promotional code</label>
-                <input id="promo-code" type="text" name="promo-code"  class="promo-code-field "  style="margin-top: 10px; padding: 1px; font-size: 16px; border: none; border-radius: 5px; color: #333; background-color: #f1efef; width: 200px;">
-									<span id="couponErr"></span>
-                
-                <button style="margin-left: 65px; margin-top: 10px;" class="btn btn-primary "onclick="applyCoupon()">Apply</button>
+            
+               <select id="promo-code" name="promo-code" class="promo-code-field" style="margin-top: 10px; padding: 5px; font-size: 16px; border: none; border-radius: 5px; color: #333; background-color: #f1efef; width: 200px;">
+
+                <option value="{{this.couponCode}}" style="text-align: center;">Select a coupon</option>
+                {{#each data}}
+                <option value="{{this.couponCode}}" style="text-align: center;">{{this.couponCode}}</option>
+                {{/each}}
+              
+                <!-- Add more options as needed -->
+                </select>
+                <span id="couponErr"></span>
+
+
+                <div style="display: flex;">
+                   <button style="margin-left: 20px; margin-top: 10px;" class="btn btn-primary "onclick="applyCoupon()">Apply</button>
+                    <button style="margin-left: 20px; margin-top: 10px;" class="btn btn-danger" onclick="cancelCoupon()" >Cancel</button>
+                </div>
+               
 
             </div>
 
@@ -148,7 +167,11 @@
 
           </div>
           <div style="display:inline-flex;">
-            <p class="mb-2">Total price:</p>
+              <p class="mb-2">Coupon amount:</p>
+              <p class="mb-2"  style="padding-left: 9%;" id="coupon">0</p>
+          </div>
+          <div style="display:inline-flex;">
+            <p class="mb-2">Discount price:</p>
             <p class="mb-2 text-danger fw-bold" id="totalValue" style="padding-left: 14%;">{{this.total}}</p>
           </div>
         </div>                  
@@ -192,6 +215,7 @@
 
   function handleClick(element) {
     // Get the value of the selected radio button
+ 
     addressId = element.value;
     console.log("Selected Value:", addressId);
 
@@ -218,21 +242,25 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			const getDataButton = document.getElementById("getDataButton");
 			getDataButton.addEventListener("click", function () {
-				
-			
-
-				const codRadioButton = document.getElementById("COD");
-				const onlineRadioButton = document.getElementById("ONLINE");
-
       
-
+         console.log({{this.chk}},'chkkk checkOuts {{this.total}}')  
+         let tepadd= {{this.chk}}
+          console.log(tepadd,'chkkk checkOutss {{total}}')   
+           
+        if({{this.chk}}==0){
+         console.log('chkkk checkOut ')
+        Swal.fire({
+        icon: 'error',
+        title: 'add address',
+        showConfirmButton: false,
+        timer: 1500
+      })
+        }
+				else{
+          const codRadioButton = document.getElementById("COD");
+				const onlineRadioButton = document.getElementById("ONLINE");
 				const totalElement = document.getElementById("total");
 				const total = parseFloat(totalElement.textContent);
-
-       
-
-        
-
 				let paymentMethod;
 				if (codRadioButton.checked) {
 					paymentMethod = codRadioButton.value;
@@ -272,6 +300,7 @@
 					});
        
 				}
+        }
 			});
 		});
 
@@ -334,18 +363,21 @@
 
 
   function walletRadioClick(radioButton) {
-      let originalTotal = parseFloat("{{this.total}}");
-    const totalElement = document.getElementById("totalValue");
+     let originalTotal = parseFloat("{{this.total}}");
+       const totalElement = document.getElementById("totalValue");
+        const total = parseFloat(totalElement.textContent);
+       console.log(total,'chk total')
+ 
     let Wallet = parseFloat("{{this.wallet.balance}}");
 
     if (radioButton.checked) {
       if (originalTotal < Wallet) {
         totalElement.textContent = 1;
       } else {
-        totalElement.textContent = originalTotal - Wallet;
+        totalElement.textContent = total - Wallet;
       }
     } else {
-      totalElement.textContent = originalTotal; // Revert to the original total
+      totalElement.textContent = total + Wallet; // Revert to the original total
     }
   }
 </script>
@@ -353,11 +385,12 @@
 <script>
 
   function applyCoupon() {
+    
       event.preventDefault();
 			 const couponCode = document.getElementById("promo-code").value
 			 const totalElement = document.getElementById("totalValue");
 			 const total = parseFloat(totalElement.textContent);
-       console.log(total)
+       console.log(total,couponCode)
 
             $.ajax({
                 url: '/verifyCoupon/' + couponCode,
@@ -371,19 +404,17 @@
                             success: (response) => {
                                 console.log(response, '---');
                                 if (response.status == true) {
-									console.log("in here ")
+									              console.log("in here ")
                                     document.getElementById('couponErr').style.color = '#19ff11'
                                     document.getElementById('couponErr').innerText = "Coupon Applied SuccessFully"
-                                    // document.getElementById('subTotal').innerText = total - response.discountAmount
                                     document.getElementById('totalValue').innerText = total - response.discountAmount
-                                  //  document.getElementById('totalVal').value = Math.floor(total - response.discountAmount)
-                                  //  document.getElementById('couponOffer').innerText = response.discount + '%'
-                                  //  document.getElementById('discountPercentage').value = response.discount
-                                  //  document.getElementById('discountAmount').value = Math.ceil(response.discountAmount)
+                                    var couponElement = document.getElementById("coupon");
+                                    couponElement.innerText =response.discountAmount
+                                
 
 
                                 } else {
-									console.log("in here22 ")
+								                  	console.log("in here22 ")
                                     document.getElementById('couponErr').style.color = "#ff0707"
                                     document.getElementById('couponErr').innerText = response.message
                                 }
@@ -401,9 +432,32 @@
 
                 }
             })
+            function cancelCoupon(){
+              console.log(total , response.discountAmount,"chkkk cancel")
+           document.getElementById('totalValue').innerText = total + response.discountAmount
+            var couponElement = document.getElementById("coupon");
+            couponElement.innerText =0
         }
+        }
+        
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+    integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+         <script>
+        const container = document.querySelector('#lottie-container');
+          const animation = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/animations/animation_lmhh334j.json',
+        });
+    </script>
 </body>
 </html>
+
+
 

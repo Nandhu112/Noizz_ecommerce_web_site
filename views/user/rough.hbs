@@ -1,189 +1,765 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Watch shop | eCommers</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
 <body>
-  {{#each orders}}
-  <section class="h-100 gradient-custom">
-  <div class="container py-5 h-100" >
-    <div class="row d-flex justify-content-center align-items-center h-100 " >
-      <div class="col-lg-10 col-xl-8" >
-        <div class="card" style="border-radius: 10px; ">
-          {{#if (equal this.status "cancelled")}}
-            <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(198, 31, 31);" >
-            
-            <h5  style="color: aliceblue;">Order Cancelled!<span ></span>!</h5>
-       
-          </div>
-          {{else}}
-          <div class="card-header px-4 py-5" style="display: flex;justify-content: space-between;background-color: rgb(37, 43, 38);" >
-            
-            <h5 style="color: aliceblue;" >Thanks for your Order, <span >{{this.deliveryDetails.firstname}}</span>!</h5>
-       
-          </div>
-          {{/if}}
-          
-          <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-          
-            
-            </div>
-            {{#each this.products}}
-            <div class="card shadow-0 border mb-4">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="/images/{{this.product._id}}0.jpg"
-                      class="img-fluid" alt="Phone">
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0">{{this.product.Name}}</p>
-                  </div>
-               
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">Qty: {{this.quantity}}</p>
-                  </div>
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small">₹{{this.product.Price}}</p>
-                  </div>
-                   {{#if (notEqual this.proStatus "cancelled")}} 
-                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger" onclick="cancelOrderProduct('{{this.product._id}}','{{../this._id}}','{{this.product.Price}}','{{../this.totalAmount}}')">X</button>
-                  </div>
-                  {{/if}}
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/noizz/logo.png" alt="">
                 </div>
-                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                <div class="row d-flex align-items-center">
-                 
-                  <div class="col-md-10">
-                   
-                    
-                  </div>
-                </div>
-     
-     {{#if (equal this.proStatus "cancelled")}} 
-      <button  style="font-size: 20px; text-align: center;background-color:  rgb(201, 54, 54);color: #e0e0e0;" class="btn btn-warning"> {{this.proStatus}}</button>
-      {{else}}
-      <button style="font-size: 20px; text-align: center;background-color: rgb(79, 79, 90);color: #e0e0e0;border-radius: 5px;" > {{this.proStatus}}</button>
-       {{/if}}
-
-              </div>
             </div>
-          {{/each }}
-           
-
-            <div class="d-flex justify-content-between pt-2">
-              <p class="fw-bold mb-0">Delivery address</p>
-             
-            </div>
-
-            <div class="d-flex justify-content-between pt-2">
-              <p class="text-muted mb-0">{{this.deliveryDetails.firstname}}</p>
-          
-            </div>
-
-            <div class="d-flex justify-content-between">
-              <p class="text-muted mb-0">{{this.deliveryDetails.address1}}</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ₹ {{this.amountPaid}}</p>
-            </div>
-            
-            <div class="d-flex justify-content-between mb-5">
-              <p class="text-muted mb-0">{{this.deliveryDetails.city}}</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-            </div>
-          </div>
-          <div class="card-header px-4 py-5" style="display: flex; justify-content: space-between">
-            <a style="" href="/invoice?id={{this._id}}"><button class="btn btn-success">Invoice Download</button></a>  
-           
-          
-   {{#if (equal this.status "placed")}} 
-    <button class="btn btn-danger"  onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
-     {{/if}}
-      {{#if (equal this.status "pending")}} 
-   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')" > CANCEL ORDER</button>
-     {{/if}}
-        {{#if (equal this.status "shipped")}} 
-   <button class="btn btn-danger" onclick="cancelOrder('{{this._id}}')"> CANCEL ORDER</button>
-     {{/if}}
-
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
- {{/each }}
-</body>
-</html>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/img/noizz/logo.png" alt="" style="width: 150px;"></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="/home">Home</a></li>
 
-<script>
-    $(document).ready(function () {
-  $(".card").click(function () {
-    $(this).toggleClass("toggle");
-  });
-});
+                                    <li><a href="#">Account</a>
+                                        <ul class="submenu">
+                                            <li><a href="/getProfilePage"> Profile</a></li>
+                                            <li><a href="/logout"> Logout</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Products</a>
+                                        <ul class="submenu">
+                                            {{!-- {{#if GuitarProduct || DrumsProduct || KeyProduct}} --}}
+                                            <li><a href="/allProducts"> All Products</a></li>
+                                            {{!-- {{else}} --}}
+                                            {{#each category }}
+                                            <li><a
+                                                    href="/getCategoryProduct?category={{this.Category}}">{{this.Category}}</a>
+                                            </li>
+                                            {{/each}}
+                                            {{!-- <a href="/admin/getCategoryProduct?category={{this.Category}}"
+                                                class="dropdown-item">{{this.Category}}</a> --}}
 
-</script>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <form class="form-inline" method="get" action="/search">
+                                    <div>
+                                        <input class="form-control" type="search" placeholder="Search"
+                                            aria-label="Search" name="name">
 
-    </body>
-</html>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-   function cancelOrder(orderId) {
-      console.log(orderId, 'ajjx')
-Swal.fire({
-  title: 'Are you sure?',
+                                    </div>
+                                </form>
 
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-         $.ajax({
+
+                                <div style="padding-left: 15px;">
+                                    <i class="fa fa-heart" style="font-size: 24px; "></i>
+                                    <a href="/wishlist"><span id="lblWishlistCount">{{userWishlistCount}}</span></a>
+                                </div>
+
+                                {{!-- {{#if cartCounts}} --}}
+                                <div style="margin-left: 20px;">
+                                    <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+                                    <a href="/carts"><span id="lblCartCount">{{cartCount}}</span></a>
+                                </div>
+
+
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+
+                                </div>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+        <link rel="stylesheet" href="cart/fonts/icomoon/style.css">
+
+        <link rel="stylesheet" href="cart/css/bootstrap.min.css">
+        <link rel="stylesheet" href="cart/css/magnific-popup.css">
+        <link rel="stylesheet" href="cart/css/jquery-ui.css">
+        <link rel="stylesheet" href="cart/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="cart/css/owl.theme.default.min.css">
+
+
+        <link rel="stylesheet" href="cart/css/aos.css">
+
+        <link rel="stylesheet" href="cart/css/style.css">
+
+    </head>
+
+    <body>
+
+        <div class="site-wrap">
+
+
+            <div class="bg-light py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+                            <strong class="text-black">Shop</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="site-section">
+                <div class="container">
+
+                    <div class="row mb-5">
+                        <div class="col-md-9 order-2">
+
+                            <div class="row">
+                                <div class="col-md-12 mb-5">
+                                    <div class="float-md-left mb-4">
+                                        <h2 class="text-black h5">Shop All</h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="dropdown mr-1 ml-md-auto">
+
+
+                                        </div>
+                                        <div class="btn-group">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+
+                                <div class="products-container" style="display: flex;" >
+
+
+                                    <div class="container-fluid ml-5">
+                                        <div class="row justify-content-center"> <!-- Center the row -->
+                                            <div class="popular-items">
+                                                <div class="container">
+                                                    <!-- Section title -->
+
+                                                    <div class="row">
+                                                        {{#each products}}
+                                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                                            
+                                                                <div class="single-popular-items mb-50 text-center">
+                                                                <div class="popular-img">
+                                                                   <a href="/productdetails?id={{this._id}}" >
+                                                                    <div>
+                                                                         <img src="/images/{{this._id}}0.jpg" alt="">
+                                                                    </div></a>  
+                                                                   
+                                                                     
+                                                                    <div class="img-cap">
+                                                                        <button class="btn btn-danger"
+                                                                            style="width: 100%;"
+                                                                            onclick="addToCart('{{this._id}}')">Add to
+                                                                            cart</button>
+                                                                    </div>
+                                                                    <div class="favorit-items">
+                                                                        <span class="flaticon-heart"></span>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="popular-caption">
+                                                                    <div id="proName">
+                                                                        {{!-- <h3 class="text-danger"
+                                                                            style="text-align: center;"><a
+                                                                                href="product_details.html"
+                                                                                style="font-size: 15px;">{{this.Name}}</a>
+                                                                        </h3> --}}
+                                                                        <p class="text-black"
+                                                                            style="font-size: 13px;text-align: center;font-size: 18px">
+                                                                            {{this.Name}}</p>
+                                                                    </div>
+                                                                    </div>
+                                                                    <h3 style="text-align: center; "><a
+                                                                            href="product_details.html"
+                                                                            style="font-size: 15px;text-primary;">Rs.{{this.Price}}
+                                                                    </h3>
+                                                                    {{#if (gt 1 this.Stock)}}
+                                                                    <p class="text-danger"
+                                                                        style="font-size: 13px;text-align: center">
+                                                                        OutOfStock</p>
+                                                                    {{!-- <span class="text-danger"
+                                                                        style="font-size: 13px;">OutOfStock</span> --}}
+                                                                    {{/if}}
+                                                                </div>
+                                                           
+                                                        </div>
+                                                        {{/each}}
+                
+                                                    </div>
+
+                                                    <!-- Button -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                <div class="col-lg-12">
+					<div style="display: flex; justify-content: center;">
+						<ul style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
+							{{#if (gt currentPage 1)}}
+							<li style="margin-right: 10px;"><a href="/allProducts?page={{sub currentPage 1}}"><button
+										class="btn mb-2 btn-secondary">Previous</button></a></li>
+							{{/if}}
+
+							{{#each pages}}
+							{{#if (equal this ../currentPage)}}
+							<li style="margin-right: 10px;" class="active"><a href="#"><button type="button"
+										class="btn mb-2 btn-primary">{{this}}</button></a></li>
+							{{else}}
+							<li style="margin-right: 10px;"><a href="/allProducts?page={{this}}"><button type="button"
+										class="btn mb-2 btn-secondary">{{this}}</button></a></li>
+							{{/if}}
+							{{/each}}
+
+							{{#if (lt currentPage totalPages)}}
+							<li style="margin-right: 10px;"><a href="/allProducts?page={{add currentPage 1}}"><button
+										class="btn mb-2 btn-secondary">Next</button></a></li>
+							{{/if}}
+						</ul>
+					</div>
+				</div>
+
+
+
+
+
+    </html>
+
+
+
+
+
+    </div>
         
-        url: '/cancelOrder/' + orderId,     
-        method: 'get',
-        success: (response) => {
-         location.reload()
-        }
-      })
-  }
-})
- 
-    }
+         
 
-    function cancelOrderProduct(proId,orderId,proTotal,total) {
-      console.log(proId,'ajjx proId')
-      console.log(orderId,'ajjx orderId')
-Swal.fire({
-  title: 'Are you sure?',
 
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-     $.ajax({
-            url: '/cancelSingleProduct',
-            data: {
-              proId: proId,
-              orderId:orderId,
-              proTotal:proTotal,
-              total:total
-            },
+    </div>
 
-            method: 'post',
+    <div class="col-md-3 order-1 mb-5 mb-md-0">
+        <div class="border p-4 rounded mb-4">    
+            <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+            <ul class="list-unstyled mb-0">
+                {{#each category }}
+                <li class="mb-1"><a href="#" class="d-flex"><span>{{this.Category}}</span> <span
+                            class="text-black ml-auto">(2,220)</span></a></li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="border p-4 rounded mb-4">
+        <div class="mb-4">
+        <h3 class="mb-3 h6 text-uppercase text-black d-block">Price</h3>
+        <label for="below_1" class="d-flex">
+            <input type="checkbox" name="price_sort" id="below_1" class="below 1"> <span class="text-black">Below 1 lakh</span>
+        </label>
+        <label for="1_to_3" class="d-flex">
+            <input type="checkbox" name="price_sort" id="1_to_3" class="1-to-3"> <span class="text-black">1 lakh to 3 lakh</span>
+        </label>
+        <label for="above_3" class="d-flex">
+            <input type="checkbox" name="price_sort" id="above_3" class="above-3"> <span class="text-black">Above 3 lakh</span>
+        </label>
+    </div>
+
+
+           <div class="mb-4">
+    <h3 class="mb-3 h6 text-uppercase text-black d-block">category</h3>
+    {{#each category}}
+    <label class="d-flex">
+        <input type="checkbox" class="category-button" data-category="{{this.Category}}">
+        <span class="text-black">{{this.Category}}</span>
+    </label>
+    {{/each}}
+</div>
+
+
+            <div class="mb-4">
+        <h3 class="mb-3 h6 text-uppercase text-black d-block">Price</h3>
+        <label for="s_low" class="d-flex">
+            <input type="radio" name="price_sort" id="s_low" class="mr-2 mt-1"> <span class="text-black">Low to High</span>
+        </label>
+        <label for="s_high" class="d-flex">
+            <input type="radio" name="price_sort" id="s_high" class="mr-2 mt-1"> <span class="text-black">High to Low</span>
+        </label>
+    </div>
+
+
+        </div>
+    </div>
+    </div>
+
+
+
+    </div>
+    </div>
+
+
+    </div>
+
+    <script src="cart/js/jquery-3.3.1.min.js"></script>
+    <script src="cart/js/jquery-ui.js"></script>
+    <script src="cart/js/popper.min.js"></script>
+    <script src="cart/js/bootstrap.min.js"></script>
+    <script src="cart/js/owl.carousel.min.js"></script>
+    <script src="cart/js/jquery.magnific-popup.min.js"></script>
+    <script src="cart/js/aos.js"></script>
+
+    <script src="cart/js/main.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js">
+</script>
+
+{{>userfooter}}
+
+<!--? Search model Begin -->
+<div class="search-model-box">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-btn">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Searching key.....">
+        </form>
+    </div>
+</div>
+<!-- Search model end -->
+
+<!-- JS here -->
+
+<script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="./assets/js/popper.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<!-- Jquery Mobile Menu -->
+<script src="./assets/js/jquery.slicknav.min.js"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="./assets/js/owl.carousel.min.js"></script>
+<script src="./assets/js/slick.min.js"></script>
+
+<!-- One Page, Animated-HeadLin -->
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/animated.headline.js"></script>
+<script src="./assets/js/jquery.magnific-popup.js"></script>
+
+<!-- Scrollup, nice-select, sticky -->
+<script src="./assets/js/jquery.scrollUp.min.js"></script>
+<script src="./assets/js/jquery.nice-select.min.js"></script>
+<script src="./assets/js/jquery.sticky.js"></script>
+
+<!-- contact js -->
+<script src="./assets/js/contact.js"></script>
+<script src="./assets/js/jquery.form.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/mail-script.js"></script>
+<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="./assets/js/plugins.js"></script>
+<script src="./assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function addToCart(proId) {
+         var spanElement = document.getElementById('lblCartCount');
+    var cartCount = spanElement.textContent;
+    var cartCount = parseInt(cartCount);
+    var spanElement = document.getElementById('lblCartCount');
+    spanElement.textContent = cartCount+1;
+        console.log(proId, 'ajjx')
+
+        $.ajax({
+            url: '/addToCart/' + proId,
+            method: 'get',
             success: (response) => {
-              console.log("succeeded ajjx")
-              location.reload()
-
+                console.log('chkkkkkkkkkkk cart')
+                   Swal.fire({
+        
+          icon: 'success',
+          title: 'Your product successfully added to the cart',
+          showConfirmButton: false,
+          timer: 1500
+        })
             }
-          });
-  }
-})
- 
+        })
     }
 </script>
+
+
+<script>
+    function updateProducts() {
+        $.ajax({
+            url: '/filterProduct', // URL of your server-side route
+            type: 'GET',
+            success: function (data) {
+                let products = data.products
+                console.log(products)
+                // Replace the content of the products section with the updated data
+                $('.popular-items .container').html(products);
+            },
+            error: function () {
+                console.log('Error fetching data');
+            }
+        });
+    }
+</script>
+
+<script>
+     console.log('chkkkkkkkkkkk click555555')
+    const proCat= new Set();
+    const ranges= new Set();
+    let r=[]
+    let sort=1
+    let p=[]
+    let range={
+        min:0,
+        max:500000
+    }
+    function addOrRemoveValue(value) {
+        if (proCat.has(value)) {
+            proCat.delete(value); 
+        } else {
+            proCat.add(value);    
+        }
+    }
+
+      function rangeAddOrRemoveValue(value) {
+        if (ranges.has(value)) {
+            ranges.delete(value); 
+        } else {
+            ranges.add(value);    
+        }
+    }
+      
+    const categoryButtons = document.querySelectorAll('.category-button');
+    const productsContainer = document.querySelector('.popular-items .container .row');
+
+    const lowToHighRadio = document.getElementById("s_low");
+    const highToLowRadio = document.getElementById("s_high");
+
+    const belowOnelakh= document.getElementById("below_1");
+    const oneToThree=document.getElementById("1_to_3");
+    const aboveThree=document.getElementById("above_3");
+
+   
+     const below1Checkbox = document.getElementById("below_1");
+    const from1To3Checkbox = document.getElementById("1_to_3");
+    const above3Checkbox = document.getElementById("above_3");
+
+    // Add event listeners for the "change" event on each checkbox
+    below1Checkbox.addEventListener("change", function() {
+        
+             rangeAddOrRemoveValue(1) 
+            console.log(ranges,"Below 1 lakh checkbox unchecked");
+             p=[...proCat]
+             r=[...ranges]
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')     
+            $.ajax({
+               
+            url: '/filterProduct',
+            
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r
+                
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk ajx',response)    
+                   let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+      
+    });
+             
+    from1To3Checkbox.addEventListener("change", function() {
+            rangeAddOrRemoveValue(2) 
+            console.log(ranges,"1 lakh to 3 lakh checkbox unchecked");
+             p=[...proCat]
+             r=[...ranges]
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')     
+            $.ajax({
+               
+            url: '/filterProduct',
+            
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r
+                
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk ajx',response.filter)    
+                   let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+        
+    });
+         
+    above3Checkbox.addEventListener("change", function() {
+             rangeAddOrRemoveValue(3) 
+            console.log(ranges,"Above 3 lakh checkbox unchecked");
+             p=[...proCat]
+             r=[...ranges]
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')     
+            $.ajax({
+               
+            url: '/filterProduct',
+            
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r
+                
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk ajx',response)    
+                  let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+   
+    });
+
+    highToLowRadio.addEventListener("click", () => {
+        if (highToLowRadio.checked) {
+            sort=-1
+        
+            console.log("High to Low radio button clicked");
+            p=[...proCat]
+            r=[...ranges]
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')  
+            $.ajax({
+                 
+            url: '/filterProduct',
+           
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r           
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk h ajx',response)    
+                  let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+        }
+    });
+
+     lowToHighRadio.addEventListener("click", () => {
+        if (lowToHighRadio.checked) {
+            sort=1
+            
+            console.log("Low to High radio button clicked");
+            p=[...proCat]
+            r=[...ranges]
+            console.log(p,'chkkkkkkkkkkk ppppppppppp') 
+            $.ajax({
+                 
+            url: '/filterProduct',
+           
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r           
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk ajx',response)    
+                   let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+        }
+    });
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('change', async () => {
+            const category = button.getAttribute('data-category');
+            addOrRemoveValue(category)
+
+            console.log('chkkkkkkkkkkk click',proCat)
+             console.log('chkkkkkkkkkkk click',proCat.size)
+             p=[...proCat]
+             r=[...ranges]
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')     
+            $.ajax({
+               
+            url: '/filterProduct',
+            
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r
+                
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk hello ajx',response)    
+                  let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
+            }
+
+            })
+            
+        });
+    });
+
+    function updateProducts(products) {
+        productsContainer.innerHTML = ''; // Clear existing products
+        products.forEach(product => {
+
+            const productHtml = `
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <a href="/productdetails?id=${product._id}" class="single-popular-items mb-50 text-center">
+                        <div class="popular-img">
+                            <img src="/images/${product._id}0.jpg" style="height: 100%; width: 100%;" alt="">
+                            <div class="img-cap">
+                                <button class="btn btn-danger" style="width: 100%;" onclick="addToCart('${product._id}')">Add to cart</button>
+                            </div>
+                            <div class="favorit-items">
+                                <span class="flaticon-heart"></span>
+                            </div>
+                        </div>
+                        <div class="popular-caption">
+                            <div id="proName">
+                                <p class="text-black" style="font-size: 13px; text-align: center; font-size: 18px">${product.Name}</p>
+                            </div>
+                            <h3 style="text-align: center;"><a href="product_details.html" style="font-size: 15px; text-primary;">Rs.${product.Price}</a></h3>
+                            ${product.Stock > 0 ? '<p class="text-danger" style="font-size: 13px; text-align: center;">OutOfStock</p>' : ''}
+                        </div>
+                    </a>
+                </div>
+                
+            `;
+
+            productsContainer.insertAdjacentHTML('beforeend', productHtml);
+        });
+
+        
+    }
+    
+      
+</script>
+
+<script>
+
+
+
+</script>
+<script>
+    function nextt(current){
+    console.log(current,'chkkkk current')
+    }
+</script>
+
+</body>
+
+</html>
+
+

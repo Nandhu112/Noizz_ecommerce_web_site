@@ -81,13 +81,11 @@
                         <!-- Header Right -->
                         <div class="header-right">
                             <ul>
-                                <form class="form-inline" method="get" action="/search">
-                                    <div>
-                                        <input class="form-control" type="search" placeholder="Search"
-                                            aria-label="Search" name="name">
-
-                                    </div>
-                                </form>
+                             
+                             <div>
+                                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="name" id="searchInput">
+                             </div>
+                              
 
 
                                 <div style="padding-left: 15px;">
@@ -232,7 +230,7 @@
                                                                             href="product_details.html"
                                                                             style="font-size: 15px;text-primary;">Rs.{{this.Price}}
                                                                     </h3>
-                                                                    {{#if (gt 0 this.Stock)}}
+                                                                    {{#if (gt 1 this.Stock)}}
                                                                     <p class="text-danger"
                                                                         style="font-size: 13px;text-align: center">
                                                                         OutOfStock</p>
@@ -243,22 +241,25 @@
                                                            
                                                         </div>
                                                         {{/each}}
+                 
                 
                                                     </div>
 
                                                     <!-- Button -->
 
                                                 </div>
+                
                                             </div>
+                                            
                                         </div>
+               
                                     </div>
-
+                                 
 
                                 </div>
-
-                <div class="col-lg-12">
-					<div style="display: flex; justify-content: center;">
-						<ul style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
+               <div class="col-lg-12">
+					<div class="paginationhome"  style="display: flex; justify-content: center;">
+						<ul class="unlist" style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
 							{{#if (gt currentPage 1)}}
 							<li style="margin-right: 10px;"><a href="/allProducts?page={{sub currentPage 1}}"><button
 										class="btn mb-2 btn-secondary">Previous</button></a></li>
@@ -282,21 +283,10 @@
 					</div>
 				</div>
 
-
-
-
-
     </html>
-
-
-
-
 
     </div>
         
-         
-
-
     </div>
 
     <div class="col-md-3 order-1 mb-5 mb-md-0">
@@ -477,15 +467,18 @@
             }
         });
     }
+
 </script>
 
 <script>
      console.log('chkkkkkkkkkkk click555555')
     const proCat= new Set();
     const ranges= new Set();
+    let search
     let r=[]
     let sort=1
     let p=[]
+    let page
     let range={
         min:0,
         max:500000
@@ -508,6 +501,8 @@
       
     const categoryButtons = document.querySelectorAll('.category-button');
     const productsContainer = document.querySelector('.popular-items .container .row');
+    const paginationButtons = document.querySelectorAll('.pagination-button');
+    const paginationContainer = document.querySelector('.paginationhome .unlist');
 
     const lowToHighRadio = document.getElementById("s_low");
     const highToLowRadio = document.getElementById("s_high");
@@ -515,13 +510,12 @@
     const belowOnelakh= document.getElementById("below_1");
     const oneToThree=document.getElementById("1_to_3");
     const aboveThree=document.getElementById("above_3");
-
+    const searchInput = document.getElementById('searchInput');
+       
    
-     const below1Checkbox = document.getElementById("below_1");
+    const below1Checkbox = document.getElementById("below_1");
     const from1To3Checkbox = document.getElementById("1_to_3");
     const above3Checkbox = document.getElementById("above_3");
-
-    // Add event listeners for the "change" event on each checkbox
     below1Checkbox.addEventListener("change", function() {
         
              rangeAddOrRemoveValue(1) 
@@ -536,7 +530,8 @@
                 data: {
                 proCat:p,
                 sort:sort,
-                range:r
+                range:r,
+                page: page
                 
                 },
          
@@ -547,6 +542,7 @@
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
@@ -559,15 +555,13 @@
              p=[...proCat]
              r=[...ranges]
              console.log(p,'chkkkkkkkkkkk ppppppppppp')     
-            $.ajax({
-               
-            url: '/filterProduct',
-            
+            $.ajax({              
+            url: '/filterProduct',           
                 data: {
                 proCat:p,
                 sort:sort,
-                range:r
-                
+                range:r,
+                page: page               
                 },
          
             method: 'post',
@@ -577,6 +571,7 @@
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
@@ -596,7 +591,8 @@
                 data: {
                 proCat:p,
                 sort:sort,
-                range:r
+                range:r,
+                page: page
                 
                 },
          
@@ -607,6 +603,7 @@
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
@@ -628,7 +625,8 @@
                 data: {
                 proCat:p,
                 sort:sort,
-                range:r           
+                range:r,
+                page: page           
                 },
          
             method: 'post',
@@ -638,6 +636,7 @@
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
@@ -659,7 +658,8 @@
                 data: {
                 proCat:p,
                 sort:sort,
-                range:r           
+                range:r,
+                page: page           
                 },
          
             method: 'post',
@@ -669,11 +669,87 @@
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
         }
     });
+
+     paginationContainer.addEventListener('click', (event) => {
+                 console.log('chkkkkkkkkkkk hello ajx11111')  
+				const target = event.target;
+				if (target.classList.contains('pagination-button')) {
+					const page = target.getAttribute('data-page');
+                    console.log(page,'chkkk page')
+                    
+					  $.ajax({
+               
+            url: '/filterProduct', 
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r,
+                page: page
+                
+                },
+         
+            method: 'post',
+            success: (response) => {    
+           console.log('chkkkkkkkkkkk hello ajx',response)    
+                  let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter)
+               updatePagination(response.currentPage, response.totalPages, response.pages)   
+                
+            }
+
+            })
+				}
+			})
+
+     searchInput.addEventListener('input', function(event) {
+         const search = event.target.value;
+        console.log('Search input changed to:', search);
+            p=[...proCat]
+            r=[...ranges]
+            console.log(p,'chkkkkkkkkkkk ppppppppppp') 
+            $.ajax({
+                 
+            url: '/filterProduct',
+           
+                data: {
+                proCat:p,
+                sort:sort,
+                range:r,
+                page: page,
+                search:search
+
+                },
+         
+            method: 'post',
+            success: (response) => {    
+                 console.log('chkkkkkkkkkkk ajx',response)    
+                   let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+                 if(products.length<1){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Product not found',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                 }
+                 else{
+                    updateProducts(products,filter)
+               updatePagination(response.currentPage, response.totalPages, response.pages)
+                 }
+            }
+
+            })
+        });        
 
     categoryButtons.forEach(button => {
         button.addEventListener('change', async () => {
@@ -702,17 +778,31 @@
                   let products=response.products
                  let currentPage=response.currentPage
                  let filter=response.filter
-               updateProducts(products,filter);
+                 if(products.length<1){
+                    Swal.fire({                   
+                    icon: 'error',
+                    title: 'Product not found',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                 }
+                 else{
+                    updateProducts(products,filter)
+               updatePagination(response.currentPage, response.totalPages, response.pages)
+                 }
+          
             }
 
             })
             
         });
     });
-
+    
+    
     function updateProducts(products) {
         productsContainer.innerHTML = ''; // Clear existing products
         products.forEach(product => {
+            
 
             const productHtml = `
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
@@ -739,24 +829,80 @@
             `;
 
             productsContainer.insertAdjacentHTML('beforeend', productHtml);
-        });
-
-        
+            
+        });             
     }
+     function updatePagination(currentPage, totalPages, pages) {
+            console.log('chkkk updatePagination currentPage..')
+            console.log(currentPage,'chkkk updatePagination currentPage')
+            console.log(totalPages,'chkkk updatePagination totalPages')
+            console.log(pages,'chkkk updatePagination pages')
+	
+               let paginationHtml=''
+				if (currentPage > 1) {
+					paginationHtml += `
+						<li style="margin-right: 10px;">
+							<a>
+								<button data-page="${currentPage - 1}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">Previous</button>
+							</a>
+						</li>
+					`;
+				}
+				pages.forEach(page => {
+					if (page === currentPage) {
+                        paginationContainer.innerHTML = '';
+						paginationHtml += `
+							<li style="margin-right: 10px;" class="active">
+								<a href="#">
+									<button type="button" data-page="${page}" class="btn mb-2 btn-primary pagination-button">${page}</button>
+								</a>
+							</li>
+						`;
+					} else {
+						paginationHtml += `
+							<li style="margin-right: 10px;">
+								<a >
+									<button type="button" data-page="${page}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">${page}</button>
+								</a>
+							</li>
+						`;
+					}
+				});
+				if (currentPage < totalPages) {
+					paginationHtml += `
+						<li style="margin-right: 10px;">
+							<a>
+								<button data-page="${currentPage + 1}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">Next</button>
+							</a>
+						</li>
+					`;
+				}
+				paginationContainer.insertAdjacentHTML('beforeend', paginationHtml);
+                
+            ;
+
+    
+			}
+    
     
       
 </script>
 
-<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+    integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+         <script>
+        const container = document.querySelector('#lottie-container');
+          const animation = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/animations/animation_lmitrqs4.json',
+        });
+    </script>
 
-
-</script>
-<script>
-    function nextt(current){
-    console.log(current,'chkkkk current')
-    }
-</script>
 
 </body>
 

@@ -11,8 +11,16 @@
 <body>
     <body style="min-height: 100vh;">
     <div class="card p-3 py-3 m-5 card-1 text-left">
-        
-        <h4>Delivery Address</h4>
+        <div style="display:flex; justify-content: space-between">
+            <div>
+               <h4 >Delivery Address</h4>
+            </div>
+              <div>
+                   <a href="/getProfilePage"><button class="btn btn-danger">X</button></a> 
+              </div>
+             
+        </div>
+    
        {{#if condition}}
         <div class="p-3 card-2">
                {{#each address}}

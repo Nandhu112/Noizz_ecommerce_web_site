@@ -122,6 +122,10 @@
 
 
 <body>
+
+  {{#if noorders}}
+   <div id="lottie-container" style="width: 20%; margin-left: 40%;"></div>
+  {{/if}}
   {{#each orders}}
   <section class="h-100 gradient-custom">
   <div class="container py-5 h-100" >
@@ -332,6 +336,21 @@ Swal.fire({
   <script src="./assets/js/slick.min.js"></script>
   <script src="./assets/js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+    integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+         <script>
+        const container = document.querySelector('#lottie-container');
+          const animation = lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/animations/animation_lmitrqs4.json',
+        });
+    </script>
     
 </body>
 </html>

@@ -11,14 +11,14 @@ const addToCart= async(proId, userId) => {
       price:product.Price
     }
     return new Promise(async (resolve, reject) => {
-      console.log(userId, "addtocart");
+
       try {
         let userCart = await Cart.findOne({ user: userId });
         if (userCart) {
-          console.log(userCart,"usercart");
+
           try {
             const proExist =userCart.products.some(product => product.item.toString() === proId.toString());
-            console.log(proExist,"proexisst");
+     
 
             if (proExist) {
               
@@ -49,7 +49,7 @@ const addToCart= async(proId, userId) => {
               }) 
             }
           } catch (error) {
-            console.log("Failed to update cart:", error);
+     
             reject(error);
           }
         }
@@ -63,7 +63,7 @@ const addToCart= async(proId, userId) => {
           resolve();
         }
       } catch (error) {
-        console.log("Failed to add to cart:", error);
+
         reject(error);
       }
     });
@@ -99,7 +99,7 @@ const addToCart= async(proId, userId) => {
             }
           },
         ]).exec();
-        // console.log(cartItems[0].product);
+    
         resolve(cartItems);
       } catch (error) {
         reject(error);
@@ -144,7 +144,7 @@ const addToCart= async(proId, userId) => {
               }
             }
           ]).exec();
-          // console.log(total[0].total);
+     
           resolve(total[0].total);
         } catch (error) {
           reject(error);
@@ -153,13 +153,13 @@ const addToCart= async(proId, userId) => {
     }   
 
     const changeProductQuantity =(details,proStock)=>{
-      console.log(details,proStock,'chkkkkk prostock and details')     
+       
         quantity=parseInt(details.quantity)
         count=parseInt(details.count)
-        // console.log('check removeeeeeeee');
+  
         return new Promise (async (resolve,reject)=>{
           if(count===-1&&quantity===1){
-            // console.log('check removeeeeeeee');
+           
             await Cart.updateOne(
             {_id:(details.cart)},  
             {
@@ -212,10 +212,10 @@ const addToCart= async(proId, userId) => {
       }
 
       const getSubTotal =(userId)=>{
-        // console.log('chkkk sub total');
+      
           return new Promise(async (resolve, reject) => {
             try {
-              // console.log("herere in get Subtotal ");
+    
               const subTotal = await Cart.aggregate([
                 {
                   $match: { user: mongoose.Types.ObjectId.createFromHexString(userId) }
@@ -250,7 +250,7 @@ const addToCart= async(proId, userId) => {
                 },
               
               ]).exec();
-              // console.log(total[0].total);
+
               resolve(subTotal);
             } catch (error) {
               reject(error);
@@ -277,15 +277,14 @@ const addToCart= async(proId, userId) => {
       }
 
       const getCartCount =(userId)=>{
-        // console.log('chkkkkkkkkk UsEr111');
+   
         return new Promise (async(resolve,reject)=>{
            try {
             let count=0  
             const  user =await Cart.find({ user: userId })
-            // console.log(user,'chkkkkkkkkk UsEr222');
+        
             if(user){
-              
-              // console.log(user[0].products.length,'chkkkkkkkkk UsEr.....');   
+
               let count=0
               for(let i=0;i<user[0].products.length;i++){
                 count+=user[0].products[i].quantity
@@ -298,12 +297,12 @@ const addToCart= async(proId, userId) => {
         })
       }
       const updateCartTotal =async (userId,couponAmount)=>{
-        console.log('chkkkkk cuponn updateCartTotal at hpr')
+       
         return new Promise ((resolve,reject)=>{
             connectDB()
             .then(async ()=>{
                await Cart.findOne({user:userId}).then(async (data)=>{
-                console.log(data,'chkkkk data at update cart')
+             
                 let total =data.total
                 const couponDiscount=couponAmount
                 const newTotal=total-couponDiscount

@@ -75,8 +75,6 @@
 
                                         </ul>
                                     </li>
-
-
                                 </ul>
                             </nav>
                         </div>
@@ -94,7 +92,7 @@
 
                                 <div style="padding-left: 15px;">
                                     <i class="fa fa-heart" style="font-size: 24px; "></i>
-                                    <a href="/wishlist"><span id="lblCartCount">{{userWishlistCount}}</span></a>
+                                    <a href="/wishlist"><span id="lblWishlistCount">{{userWishlistCount}}</span></a>
                                 </div>
 
                                 {{!-- {{#if cartCounts}} --}}
@@ -234,7 +232,7 @@
                                                                             href="product_details.html"
                                                                             style="font-size: 15px;text-primary;">Rs.{{this.Price}}
                                                                     </h3>
-                                                                    {{#if (gt 0 this.Stock)}}
+                                                                    {{#if (gt 1 this.Stock)}}
                                                                     <p class="text-danger"
                                                                         style="font-size: 13px;text-align: center">
                                                                         OutOfStock</p>
@@ -245,37 +243,7 @@
                                                            
                                                         </div>
                                                         {{/each}}
-                                                    </div>
-</div>
-        {{#if filter}}
-         <div class="col-lg-12" >
-					<div style="display: flex; justify-content: center; ">
-						<ul style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;margin-top:40px;">
-							{{#if (gt currentPage 1)}}
-							<li style="margin-right: 10px;"><a href="/allProducts?page={{sub currentPage 1}}"><button
-										class="btn mb-2 btn-secondary">Previous</button></a></li>
-							{{/if}}
-
-							{{#each pages}}
-							{{#if (equal this ../currentPage)}}
-							<li style="margin-right: 10px;" class="active"><a href="#"><button type="button"
-										class="btn mb-2 btn-primary">{{this}}</button></a></li>
-							{{else}}
-							<li style="margin-right: 10px;"><a href="/allProducts?page={{this}}"><button type="button"
-										class="btn mb-2 btn-secondary">{{this}}</button></a></li>
-							{{/if}}
-							{{/each}}
-
-							{{#if (lt currentPage totalPages)}}
-							<li style="margin-right: 10px;"><a href="/allProducts?page={{add currentPage 1}}"><button
-										class="btn mb-2 btn-secondary">Next</button></a></li>
-							{{/if}}
-						</ul>
-                        
-					</div>
-				</div>
-            {{else}}
-               <div class="col-lg-12">
+                 <div class="col-lg-12">
 					<div style="display: flex; justify-content: center;">
 						<ul style="list-style: none; padding: 0; margin: 0; display: flex; align-items: center;">
 							{{#if (gt currentPage 1)}}
@@ -299,34 +267,28 @@
 							{{/if}}
 						</ul>
 					</div>
-                    <h1>1111111111111</h1>
 				</div>
-          {{/if}}
+                
+                                                    </div>
 
-    </div>
                                                     <!-- Button -->
 
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-
+                                 
 
                                 </div>
 
-
-
-
-
-
-
+               
+         
     </html>
 
-
-
-
-
-    
+    </div>
+        
+    </div>
 
     <div class="col-md-3 order-1 mb-5 mb-md-0">
         <div class="border p-4 rounded mb-4">    
@@ -465,6 +427,11 @@
 
 <script>
     function addToCart(proId) {
+         var spanElement = document.getElementById('lblCartCount');
+    var cartCount = spanElement.textContent;
+    var cartCount = parseInt(cartCount);
+    var spanElement = document.getElementById('lblCartCount');
+    spanElement.textContent = cartCount+1;
         console.log(proId, 'ajjx')
 
         $.ajax({
@@ -567,7 +534,7 @@
             method: 'post',
             success: (response) => {    
                  console.log('chkkkkkkkkkkk ajx',response)    
-                  let products=response.products
+                   let products=response.products
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
@@ -627,7 +594,10 @@
             method: 'post',
             success: (response) => {    
                  console.log('chkkkkkkkkkkk ajx',response)    
-               updateProducts(response);
+                  let products=response.products
+                 let currentPage=response.currentPage
+                 let filter=response.filter
+               updateProducts(products,filter);
             }
 
             })
@@ -654,8 +624,8 @@
          
             method: 'post',
             success: (response) => {    
-                 console.log('chkkkkkkkkkkk high t low  ajx',response)    
-                   let products=response.products
+                 console.log('chkkkkkkkkkkk h ajx',response)    
+                  let products=response.products
                  let currentPage=response.currentPage
                  let filter=response.filter
                updateProducts(products,filter);
@@ -685,7 +655,7 @@
          
             method: 'post',
             success: (response) => {    
-                 console.log('chkkkkkkkkkkk loe oy high ajx',response)    
+                 console.log('chkkkkkkkkkkk ajx',response)    
                    let products=response.products
                  let currentPage=response.currentPage
                  let filter=response.filter
@@ -705,7 +675,7 @@
              console.log('chkkkkkkkkkkk click',proCat.size)
              p=[...proCat]
              r=[...ranges]
-             console.log(p,'chkkkkkkkkkkk cat ppppppppppp')     
+             console.log(p,'chkkkkkkkkkkk ppppppppppp')     
             $.ajax({
                
             url: '/filterProduct',
@@ -720,10 +690,11 @@
             method: 'post',
             success: (response) => {    
                  console.log('chkkkkkkkkkkk hello ajx',response)    
-                 let products=response.products
+                  let products=response.products
                  let currentPage=response.currentPage
                  let filter=response.filter
-               updateProducts(products,filter);
+               updateProducts(products,filter)
+               updatePagination(response.currentPage, response.totalPages, response.pages)
             }
 
             })
@@ -731,10 +702,10 @@
         });
     });
 
-    function updateProducts(products,filter) {
+    function updateProducts(products) {
         productsContainer.innerHTML = ''; // Clear existing products
         products.forEach(product => {
-            let home=false
+
             const productHtml = `
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                     <a href="/productdetails?id=${product._id}" class="single-popular-items mb-50 text-center">
@@ -756,16 +727,70 @@
                         </div>
                     </a>
                 </div>
+                
             `;
+
             productsContainer.insertAdjacentHTML('beforeend', productHtml);
-        });
+            
+        });             
     }
+     function updatePagination(currentPage, totalPages, pages) {
+            console.log('chkkk updatePagination')
+				paginationContainer.innerHTML = '';
+				let paginationHtml=''
+				if (currentPage > 1) {
+					paginationHtml += `
+						<li style="margin-right: 10px;">
+							<a>
+								<button data-page="${currentPage - 1}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">Previous</button>
+							</a>
+						</li>
+					`;
+				}
+				pages.forEach(page => {
+					if (page === currentPage) {
+						paginationHtml += `
+							<li style="margin-right: 10px;" class="active">
+								<a href="#">
+									<button type="button" data-page="${page}" class="btn mb-2 btn-primary pagination-button">${page}</button>
+								</a>
+							</li>
+						`;
+					} else {
+						paginationHtml += `
+							<li style="margin-right: 10px;">
+								<a >
+									<button type="button" data-page="${page}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">${page}</button>
+								</a>
+							</li>
+						`;
+					}
+				});
+				if (currentPage < totalPages) {
+					paginationHtml += `
+						<li style="margin-right: 10px;">
+							<a>
+								<button data-page="${currentPage + 1}" class="btn mb-2 btn-secondary pagination-button" id="paginationButton">Next</button>
+							</a>
+						</li>
+					`;
+				}
+				paginationContainer.insertAdjacentHTML('beforeend', paginationHtml);
+			}
+    
+    
+      
 </script>
 
 <script>
 
 
 
+</script>
+<script>
+    function nextt(current){
+    console.log(current,'chkkkk current')
+    }
 </script>
 
 </body>

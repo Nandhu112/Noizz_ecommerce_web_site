@@ -50,7 +50,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload())
 
 app.use('/', userRouter);
-app.use('/admin', adminRouter); 
+app.use('/admin', adminRouter);
+
+// Handle undefined routes (404)
+app.use((req, res, next) => {
+res.status(404).render('error-404'); 
+});
 
   hbs.handlebars.registerHelper('notEqual', function (a, b) {    
 	return a !== b;
@@ -75,7 +80,7 @@ app.use('/admin', adminRouter);
   });
   hbs.handlebars.registerHelper('add', function (a, b) {
     return  parseInt(a) + parseInt(b);
-  });
+  });   
   hbs.handlebars.registerHelper('sub', function (a, b) {
     return parseInt(a) - parseInt(b);
   });

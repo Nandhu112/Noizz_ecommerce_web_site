@@ -6,7 +6,7 @@ const updateWalletAmount=async (total,userId)=>{
   console.log('chkkkk wallet')
     try {
       return new Promise (async (resolve, reject)=>{
-          connectDB()
+          connectDB()   
           .then (async ()=>{
            let wallet= await  Wallet.findOne({ userId: userId })
             if (!wallet) {

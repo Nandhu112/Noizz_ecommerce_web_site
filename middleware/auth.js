@@ -13,7 +13,7 @@ const isLogin=(req,res,next)=>{
             next()
         }
     } catch (error) {
-        console.log(error);
+        console.log(error);       
     }
 }
 const isBlocked=(async(req,res,next)  =>{

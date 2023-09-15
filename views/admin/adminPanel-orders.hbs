@@ -5,7 +5,7 @@
 
     <div class="container">
       
-        <table class="table table-striped mt-5">
+        <table class="table table-striped mt-5" id="myTable">
             <thead>
                 <tr>
                    
@@ -64,4 +64,22 @@ function updateHref() {
   const href = baseHref + selectedValue
   window.location.href = href;
 }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // $.noConflict();
+    
+    var table = $('#myTable').DataTable({
+      "paging": true,          // Enable pagination
+      "pageLength": 10,        // Number of rows per page
+      "lengthMenu": [10, 25, 50, 75, 100],  // Dropdown options for rows per page
+    });
+  
+    table.on('draw', function() {
+      $(".paginate_button:not(.previous):not(.next)").addClass("number_button");
+    });
+  });
 </script>

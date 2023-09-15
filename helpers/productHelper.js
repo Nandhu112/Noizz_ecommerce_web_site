@@ -231,7 +231,7 @@ const addProduct = (product, callback) => {
   }
 
  
-  const  searchProducts = async(query)=> {
+  const searchProducts = async(query)=> {
     try {
       return new Promise ((resolve, reject) => {
         connectDB().then(() => {

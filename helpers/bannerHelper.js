@@ -5,7 +5,7 @@ const Banner = require('../models/banner');
 
 const addBannerHelper=async(texts, Image) => {
     return new Promise(async (resolve, reject) => {
-        console.log(Image,"jjj");
+      
         const imageName= Date.now() +Image.name
         connectDB().then (async ()=>{
             const banner = new Banner({
@@ -14,12 +14,12 @@ const addBannerHelper=async(texts, Image) => {
                 image: imageName ,
             });
             await banner.save().then((response) => {
-                console.log(Image,response, "in here multer");
+           
                 if ( Image) {
                   
                   const images = Image;
-                  console.log(images,"entered");
-                  // const destinationPath = './public/product-images/';
+               
+                 
                   const movePromises = [];
               
                   
@@ -34,25 +34,16 @@ const addBannerHelper=async(texts, Image) => {
                       });
                     });
                     movePromises.push(movePromise);
-                  
-              
-                  // Wait for all file moves to complete
+
                   Promise.all(movePromises)
                     .then(() => {
-                      // All files moved successfully
-                      // Perform any other actions you need to do after file upload
-              
-                      // Send response or redirect
-                    //   res.redirect("/admin/addBanner");
+            
                     })
                     .catch((error) => {
-                      console.log('Failed to move images:', error);
-                      // Handle the error
-                    //   res.status(500).send('Failed to add Banner');
+              
                     });
                 } else {
-                  // Handle case where no images were uploaded
-                  // ...
+
                 }
                 resolve(response);
             });
@@ -76,7 +67,7 @@ const fetchBanner = async (id)=>{
     return new Promise ((resolve,reject)=>{
         connectDB()
         .then(()=>{
-            console.log(id,"in fetch banner");
+      
             Banner.findById(id).then((response) => {
                 resolve(response);
             });  
@@ -86,7 +77,7 @@ const fetchBanner = async (id)=>{
 
 const editBannerHelper = async (details,Image)=>{
   return new Promise(async (resolve, reject) => {
-      console.log(Image,"jjj");
+   
       const imageName= details.img
       connectDB().then (async ()=>{
           Banner.findByIdAndUpdate(details.id,{$set:{
@@ -95,12 +86,12 @@ const editBannerHelper = async (details,Image)=>{
               link: details.link
           }})
          .then((response) => {
-              console.log(Image,response, "in here multer");
+           
               if ( Image) {
                 
                 const images = Image;
-                console.log(images,"entered");
-                // const destinationPath = './public/product-images/';
+           
+          
                 const movePromises = [];
             
                 
@@ -116,24 +107,16 @@ const editBannerHelper = async (details,Image)=>{
                   });
                   movePromises.push(movePromise);
                 
-            
-                // Wait for all file moves to complete
                 Promise.all(movePromises)
                   .then(() => {
-                    // All files moved successfully
-                    // Perform any other actions you need to do after file upload
-            
-                    // Send response or redirect
-                  //   res.redirect("/admin/addBanner");
+             
                   })
                   .catch((error) => {
                     console.log('Failed to move images:', error);
-                    // Handle the error
-                  //   res.status(500).send('Failed to add Banner');
+
                   });
               } else {
-                // Handle case where no images were uploaded
-                // ...
+
               }
               resolve(response);
           });

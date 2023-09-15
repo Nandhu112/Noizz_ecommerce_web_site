@@ -25,7 +25,7 @@ const addcoupons= async(data)=>{
                 
             
               } catch (error) {
-                console.log(error.message)
+             
               }
         })
     })
@@ -46,11 +46,11 @@ const deleteCoupon = async (id)=>{
         connectDB()
         .then(async ()=>{
             await Coupon.deleteOne({ _id: id })
-        //    await Coupon.findByIdAndUpdate(id,{delete:true})
+
            .then(()=>{
                 resolve({status: true})
             }).catch((error)=>{
-                console.log(error,"ERror");
+          
             })
         })
     })
@@ -104,7 +104,7 @@ const applyCoupon =async  (couponCode, total) => {
         );
       })
     } catch (error) {
-        console.log(error.message)
+     
     }
   }
 
@@ -112,15 +112,15 @@ const applyCoupon =async  (couponCode, total) => {
     try {
         return new Promise(async(resolve, reject) => {
           const couponExist = await Coupon.findOne({ couponCode: couponCode })
-              // console.log("code:",couponExist.length);
+           
             if (couponExist) {
-              console.log(couponExist);
+          
               if (new Date(couponExist.validity) - new Date() > 0) {
                 const usersCoupon = await User.findOne({
                   _id: userId,
                   coupons: { $in: [couponCode] },
                 });
-                // console.log(usersCoupon,"couponExist");
+               
 
                 if (usersCoupon) {
                   resolve({
@@ -141,7 +141,7 @@ const applyCoupon =async  (couponCode, total) => {
             } 
       });
     } catch (error) {
-      console.log(error.message)
+     
       reject(error)
     }
 }

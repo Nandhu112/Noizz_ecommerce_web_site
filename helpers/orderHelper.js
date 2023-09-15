@@ -111,7 +111,7 @@ const allOrders= async () => {
             .then(() => {
                 Order.find({}).sort({ date: -1 }).then((data) => {
                     resolve(data)
-                }).catch((error) => {
+                }).catch((error) => {  
                     console.log(error);
                     reject(error)
                 })
@@ -400,7 +400,8 @@ const findOrdersDelivered =()=>{
       console.log(error)
     }
   }
- const  findOrdersDelivered_populated= ()=>{
+  const findOrdersDelivered_populated=()=>{
+    console.log('chkkkkkkk reporttttttt')
     try {
       return new Promise ((resolve,reject)=>{
         connectDB().then(()=>{
@@ -421,6 +422,7 @@ const findOrdersDelivered =()=>{
   }
 
   const findOrderByDate=(startDate,endDate)=>{
+    console.log(startDate,endDate,'chkkkk startDate,endDate')
     try {
       return new Promise ((resolve ,reject)=>{
         connectDB()

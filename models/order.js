@@ -59,7 +59,7 @@ const orderSchema = new mongoose.Schema({
     },
     proStatus: {
       type: String,
-      enum: ['placed','pending', 'shipped', 'delivered','cancelled','return requested'],      
+      enum: ['placed','pending','shipped','delivered','cancelled','return requested'],      
       default: 'pending',
     },
     quantity: {
